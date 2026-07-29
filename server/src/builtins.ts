@@ -22,8 +22,8 @@ export interface Builtin {
   maxArgs?: number;
   /** True for functions (return a value), false for procedures. */
   isFunction?: boolean;
-  /** Where the entry came from: the documentation, the supplement, or both. */
-  source?: 'docs' | 'supplement' | 'both';
+  /** Where the entry came from: the documentation, the registry, or both. */
+  source?: 'docs' | 'registry' | 'both';
 }
 
 export type BuiltinCategory = 'cgpl' | 'pbxapp' | 'webapp';
@@ -50,7 +50,7 @@ interface RawEntry {
   minArgs?: number;
   maxArgs?: number;
   isFunction?: boolean;
-  source?: 'docs' | 'supplement' | 'both';
+  source?: 'docs' | 'registry' | 'both';
 }
 
 let byLowerName: Map<string, Builtin> | undefined;
@@ -120,7 +120,7 @@ export function builtinHover(b: Builtin): string {
     lines.push('', `Takes ${arity}.`);
   }
   if (b.doc) lines.push('', b.doc);
-  if (b.source === 'supplement') {
+  if (b.source === 'registry') {
     // Be explicit rather than silently presenting a bare name as if it were
     // documented.
     lines.push('', '*Not covered by the published CommuniGate Pro documentation.*');

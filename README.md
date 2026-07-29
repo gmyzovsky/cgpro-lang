@@ -77,9 +77,12 @@ npm run build:grammars            # builtins.json + hand-authored grammar shape 
 documentation at all; fetching and extracting is only needed to refresh it. The extractor accepts either the
 published HTML or a local Markdown copy of the same pages - set `CGPRO_DOCS_ROOT` to point at either.
 
-`tools/builtins-supplement.json` covers what the prose does not: functions that exist but are undocumented,
-and the argument counts no page states. It is merged into `tools/builtins.json` by the same extractor, and
-entries that come only from it are labelled as undocumented in their hover rather than posing as documented.
+`tools/builtins-registry.json` is the full roster of built-ins the server provides - every one of them, not
+just the obscure ones - recording each function's argument counts and whether it is a function or a procedure.
+It exists because the documentation states argument counts nowhere, and because a number of built-ins are not
+described on any page. The extractor merges it with the documentation: the roster supplies existence and arity,
+the pages supply the descriptions. Entries the documentation does not cover are labelled as undocumented in
+their hover rather than posing as documented, and no documentation link is offered for them.
 
 The grammar *shape* itself (keywords, both CG/PL syntax dialects, operator precedence, string/number/comment
 lexemes, the WSSP `%%...%%`/`<!--%%...-->` injection structure) is hand-authored in `tools/build-grammars.mjs`

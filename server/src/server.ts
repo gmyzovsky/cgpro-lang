@@ -216,7 +216,7 @@ function builtinCompletion(b: Builtin): CompletionItem {
     documentation: { kind: MarkupKind.Markdown, value: builtinHover(b) },
     // Locals sort above built-ins, and undocumented built-ins below the
     // documented ones.
-    sortText: b.source === 'supplement' ? `3_${b.name}` : `2_${b.name}`,
+    sortText: b.source === 'registry' ? `3_${b.name}` : `2_${b.name}`,
   };
 }
 

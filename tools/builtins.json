@@ -3,13 +3,15 @@
     {
       "name": "ActivateMeeting",
       "signatures": [
-        "ActivateMeeting(setName,key)"
+        "ActivateMeeting(setName,key)",
+        "ActivateMeeting(setName,key,parameter)"
       ],
       "params": [
         "setName",
-        "key"
+        "key",
+        "parameter"
       ],
-      "doc": "ActivateMeeting(setName,key,parameter) This function adds the Task handle for the current Task to a Meeting in the current Account. The setName and key parameter values specify an already created Meeting. There should be no other Task handle stored in this Meeting. The current Task becomes the Meeting Active Task. The optional parameter parameter value is stored with the Meeting.",
+      "doc": "This function adds the Task handle for the current Task to a Meeting in the current Account. The setName and key parameter values specify an already created Meeting. There should be no other Task handle stored in this Meeting. The current Task becomes the Meeting Active Task. The optional parameter parameter value is stored with the Meeting.",
       "anchor": "ActivateMeeting",
       "minArgs": 2,
       "maxArgs": 3,
@@ -43,7 +45,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "AppendStorageFile",
@@ -72,7 +74,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "AppToXML",
@@ -199,13 +201,15 @@
     {
       "name": "CallHelper",
       "signatures": [
-        "CallHelper(name,parameters)"
+        "CallHelper(name,parameters)",
+        "CallHelper(name,parameters,mode)"
       ],
       "params": [
         "name",
-        "parameters"
+        "parameters",
+        "mode"
       ],
-      "doc": "CallHelper(name,parameters,mode) This function sends a request to an External Application Helper. The name value should be a string specifying the Application Helper name. The parameters value (application-specific) is passed to the Application Helper program. The optional mode string is used to specify the cluster member that is used to run Application Helper program.",
+      "doc": "This function sends a request to an External Application Helper. The name value should be a string specifying the Application Helper name. The parameters value (application-specific) is passed to the Application Helper program. The optional mode string is used to specify the cluster member that is used to run Application Helper program.",
       "anchor": "CallHelper",
       "minArgs": 2,
       "maxArgs": 3,
@@ -293,13 +297,15 @@
     {
       "name": "CreateMeeting",
       "signatures": [
-        "CreateMeeting(setName,key)"
+        "CreateMeeting(setName,key)",
+        "CreateMeeting(setName,key,parameter)"
       ],
       "params": [
         "setName",
-        "key"
+        "key",
+        "parameter"
       ],
-      "doc": "CreateMeeting(setName,key,parameter) This function creates a Meeting object in some Meeting Set within the current Account. The setName parameter specifies the Meeting set name. If its value is a null-value or an empty string, the Default Meeting Set is used. The key parameter must be a string. It specifies a unique ID or name for the new Meeting.",
+      "doc": "This function creates a Meeting object in some Meeting Set within the current Account. The setName parameter specifies the Meeting set name. If its value is a null-value or an empty string, the Default Meeting Set is used. The key parameter must be a string. It specifies a unique ID or name for the new Meeting.",
       "anchor": "CreateMeeting",
       "minArgs": 2,
       "maxArgs": 3,
@@ -317,7 +323,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "CreateStorageDirectory",
@@ -367,13 +373,15 @@
     {
       "name": "CryDigest",
       "signatures": [
-        "CryDigest(algName,data)"
+        "CryDigest(algName,data)",
+        "CryDigest(algName,data,salt)"
       ],
       "params": [
         "algName",
-        "data"
+        "data",
+        "salt"
       ],
-      "doc": "CryDigest(algName,data,salt) This function computes the cryptographic digest of the data datablock. The algName value should be a string specifying the digest algorithm name (MD5, SHA1, etc). If the third parameter salt is specified, the digest is calculated using the HMAC algorithm with this third parameter used as the key and algName used for both HMAC stages.",
+      "doc": "This function computes the cryptographic digest of the data datablock. The algName value should be a string specifying the digest algorithm name (MD5, SHA1, etc). If the third parameter salt is specified, the digest is calculated using the HMAC algorithm with this third parameter used as the key and algName used for both HMAC stages.",
       "anchor": "CryDigest",
       "minArgs": 2,
       "maxArgs": 3,
@@ -474,7 +482,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "DatasetRemove",
@@ -576,13 +584,15 @@
     {
       "name": "DeactivateMeeting",
       "signatures": [
-        "DeactivateMeeting(setName,key)"
+        "DeactivateMeeting(setName,key)",
+        "DeactivateMeeting(setName,key,parameter)"
       ],
       "params": [
         "setName",
-        "key"
+        "key",
+        "parameter"
       ],
-      "doc": "DeactivateMeeting(setName,key,parameter) This function removes Task handle for the current Task from a Meeting in the current Account. The setName and key parameter values specify an already created Meeting, and that Meeting should contain a Task handle for the current Task. The optional parameter parameter value is stored with the Meeting.",
+      "doc": "This function removes Task handle for the current Task from a Meeting in the current Account. The setName and key parameter values specify an already created Meeting, and that Meeting should contain a Task handle for the current Task. The optional parameter parameter value is stored with the Meeting. When this operation completes successfully, the Meeting has no Active Task.",
       "anchor": "DeactivateMeeting",
       "minArgs": 2,
       "maxArgs": 3,
@@ -616,7 +626,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "DELETESITEFILE",
@@ -629,7 +639,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "DeleteStorageDirectory",
@@ -787,12 +797,16 @@
     {
       "name": "Enqueue",
       "signatures": [
-        "Enqueue(queueName)"
+        "Enqueue(queueName)",
+        "Enqueue(queueName,parameter)",
+        "Enqueue(queueName,parameter,pty)"
       ],
       "params": [
-        "queueName"
+        "queueName",
+        "parameter",
+        "pty"
       ],
-      "doc": "Enqueue(queueName,parameter) Enqueue(queueName,parameter,pty) This function registers the current Task with the Account associated with it. An Account may have several Queues with Task registrations. The queueName parameter specifies the Queue name. If this parameter value is a null-value or an empty string, the default Queue of the associated Account is used.",
+      "doc": "This function registers the current Task with the Account associated with it. An Account may have several Queues with Task registrations. The queueName parameter specifies the Queue name. If this parameter value is a null-value or an empty string, the default Queue of the associated Account is used. The optional parameter parameter value is stored with the Task registration.",
       "anchor": "Enqueue",
       "minArgs": 1,
       "maxArgs": 3,
@@ -855,7 +869,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "FindMeeting",
@@ -892,13 +906,15 @@
     {
       "name": "FindSubstring",
       "signatures": [
-        "FindSubstring(str,substr)"
+        "FindSubstring(str,substr)",
+        "FindSubstring(str,substr,offset)"
       ],
       "params": [
         "str",
-        "substr"
+        "substr",
+        "offset"
       ],
-      "doc": "FindSubstring(str,substr,offset) The str and substr values should be strings, while the offset should be a number. The function checks if the substr value is a substring of the str value.",
+      "doc": "The str and substr values should be strings, while the offset should be a number. The function checks if the substr value is a substring of the str value. If the offset parameter is specified and its value is greater than zero, then the search ignores the first offset bytes of the str string value, and the position of the first found substring in the str value is returned.",
       "anchor": "FindSubstring",
       "minArgs": 2,
       "maxArgs": 3,
@@ -916,17 +932,22 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "FuncCall",
       "signatures": [
-        "FuncCall(name)"
+        "FuncCall(name)",
+        "FuncCall(name,arg1)",
+        "FuncCall(name,arg1,arg2)",
+        "FuncCall(name,arg1,....)"
       ],
       "params": [
-        "name"
+        "name",
+        "arg1",
+        "arg2"
       ],
-      "doc": ") This function has 1 or more parameters. The name value should be a string, it specifies a simple or a qualified external function name. This external function is called, using the remaining parameters as its parameters. There is no need to use external-declarations for functions called this way.",
+      "doc": "This function has 1 or more parameters. The name value should be a string, it specifies a simple or a qualified external function name. This external function is called, using the remaining parameters as its parameters. There is no need to use external-declarations for functions called this way.",
       "anchor": "FuncCall",
       "source": "docs"
     },
@@ -941,7 +962,7 @@
       "minArgs": 4,
       "maxArgs": 4,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetAccountInfo",
@@ -954,7 +975,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetAccountPreferences",
@@ -982,7 +1003,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetApplicationStatus",
@@ -995,18 +1016,20 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetAttribute",
       "signatures": [
-        "GetAttribute(data,name)"
+        "GetAttribute(data,name)",
+        "GetAttribute(data,name,prefix)"
       ],
       "params": [
         "data",
-        "name"
+        "name",
+        "prefix"
       ],
-      "doc": "GetAttribute(data,name,prefix) The data value should be an XML Object, otherwise this function call results in a program exception. If the prefix parameter is specified, its value value should be a null-value or a string containing a valid XML prefix. If the name value is a string, it should contain a valid XML attribute name.",
+      "doc": "The data value should be an XML Object, otherwise this function call results in a program exception. If the prefix parameter is specified, its value value should be a null-value or a string containing a valid XML prefix. If the name value is a string, it should contain a valid XML attribute name.",
       "anchor": "GetAttribute",
       "minArgs": 2,
       "maxArgs": 3,
@@ -1090,12 +1113,14 @@
     {
       "name": "GetNamespace",
       "signatures": [
-        "GetNamespace(data)"
+        "GetNamespace(data)",
+        "GetNamespace(data,prefix)"
       ],
       "params": [
-        "data"
+        "data",
+        "prefix"
       ],
-      "doc": "GetNamespace(data,prefix) This function returns a string with the namespace associated with the specified XML prefix, or a null-value if there is no associated namespace. The data value should be an XML Object, otherwise this function call results in a program exception. If the prefix is not specified, or its value is a null-value, then an empty string value is used.",
+      "doc": "This function returns a string with the namespace associated with the specified XML prefix, or a null-value if there is no associated namespace. The data value should be an XML Object, otherwise this function call results in a program exception. If the prefix is not specified, or its value is a null-value, then an empty string value is used.",
       "anchor": "GetNamespace",
       "minArgs": 1,
       "maxArgs": 2,
@@ -1113,7 +1138,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetPrefix",
@@ -1501,7 +1526,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ListStorageFiles",
@@ -1623,7 +1648,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MailboxExpunge",
@@ -1750,7 +1775,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MailboxUIDByOrigUID",
@@ -1827,7 +1852,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MessageHeader",
@@ -1993,12 +2018,16 @@
     {
       "name": "NewXML",
       "signatures": [
-        "NewXML(type)"
+        "NewXML(type)",
+        "NewXML(type,prefix)",
+        "NewXML(type,prefix,namespace)"
       ],
       "params": [
-        "type"
+        "type",
+        "prefix",
+        "namespace"
       ],
-      "doc": "NewXML(type,prefix) NewXML(type,prefix,namespace) This function returns a newly created XML Object of type type. The type value should be a string containing a valid XML tag. The prefix value (if specified) can be a null-value or a string containing a valid XML prefix.",
+      "doc": "This function returns a newly created XML Object of type type. The type value should be a string containing a valid XML tag. The prefix value (if specified) can be a null-value or a string containing a valid XML prefix. This prefix is used to qualify the XML object name, if not specified or if its value is a null-value, then an empty string value is used.",
       "anchor": "NewXML",
       "minArgs": 1,
       "maxArgs": 3,
@@ -2159,12 +2188,17 @@
     {
       "name": "ProcCall",
       "signatures": [
-        "ProcCall(name)"
+        "ProcCall(name)",
+        "ProcCall(name,arg1)",
+        "ProcCall(name,arg1,arg2)",
+        "ProcCall(name,arg1,....)"
       ],
       "params": [
-        "name"
+        "name",
+        "arg1",
+        "arg2"
       ],
-      "doc": ") This procedure has 1 or more parameters. The name value should be a string, it specifies a simple or a qualified external procedure name. This external procedure is called, using the remaining parameters as its parameters. There is no need to use external-declarations for procedures called this way.",
+      "doc": "This procedure has 1 or more parameters. The name value should be a string, it specifies a simple or a qualified external procedure name. This external procedure is called, using the remaining parameters as its parameters. There is no need to use external-declarations for procedures called this way.",
       "anchor": "ProcCall",
       "source": "docs"
     },
@@ -2271,7 +2305,7 @@
       "minArgs": 0,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ReadEnvirFile",
@@ -2299,7 +2333,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "READFILE",
@@ -2312,7 +2346,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ReadGroupMembers",
@@ -2359,10 +2393,13 @@
     {
       "name": "ReadRoster",
       "signatures": [
-        "ReadRoster()"
+        "ReadRoster()",
+        "ReadRoster(accountName)"
       ],
-      "params": [],
-      "doc": "ReadRoster(accountName) This function retrieves Roster items. If the the accountName parameter is not specified, or if its value is a null-value, the current Account Roster is read, otherwise the accountName value should be a string specifying the name of the Account to read Roster items from.",
+      "params": [
+        "accountName"
+      ],
+      "doc": "This function retrieves Roster items. If the the accountName parameter is not specified, or if its value is a null-value, the current Account Roster is read, otherwise the accountName value should be a string specifying the name of the Account to read Roster items from.",
       "anchor": "ReadRoster",
       "minArgs": 0,
       "maxArgs": 1,
@@ -2380,7 +2417,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "READSKINFILE",
@@ -2393,17 +2430,21 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ReadSkinObject",
       "signatures": [
-        "ReadSkinObject(tagName)"
+        "ReadSkinObject(tagName)",
+        "ReadSkinObject(tagName,index)",
+        "ReadSkinObject(tagName,index,skinName)"
       ],
       "params": [
-        "tagName"
+        "tagName",
+        "index",
+        "skinName"
       ],
-      "doc": "ReadSkinObject(tagName,index) ReadSkinObject(tagName,index,skinName) This function retrieves the specified object from the specified WebUser skin's Text Dataset (or the Basic skin, if skinName is not specified).",
+      "doc": "This function retrieves the specified object from the specified WebUser skin's Text Dataset (or the Basic skin, if skinName is not specified).",
       "anchor": "ReadSkinObject",
       "minArgs": 1,
       "maxArgs": 3,
@@ -2444,10 +2485,13 @@
     {
       "name": "ReadTelnums",
       "signatures": [
-        "ReadTelnums()"
+        "ReadTelnums()",
+        "ReadTelnums(accountName)"
       ],
-      "params": [],
-      "doc": "ReadTelnums(accountName) This function reads Phone Numbers assigned to the accountName Account or to the current Account, if the accountName parameter is not specified or if its value is a null-value. This function returns an array of strings. This function returns a null-value if there is no Account with the specified name.",
+      "params": [
+        "accountName"
+      ],
+      "doc": "This function reads Phone Numbers assigned to the accountName Account or to the current Account, if the accountName parameter is not specified or if its value is a null-value. This function returns an array of strings. This function returns a null-value if there is no Account with the specified name.",
       "anchor": "ReadTelnums",
       "minArgs": 0,
       "maxArgs": 1,
@@ -2514,7 +2558,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "RENAMESITEFILE",
@@ -2527,7 +2571,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "RenameStorageDirectory",
@@ -2597,12 +2641,16 @@
     {
       "name": "RunScript",
       "signatures": [
-        "RunScript(scriptName)"
+        "RunScript(scriptName)",
+        "RunScript(scriptName,paramObj)",
+        "RunScript(scriptName,paramObj,entryName)"
       ],
       "params": [
-        "scriptName"
+        "scriptName",
+        "paramObj",
+        "entryName"
       ],
-      "doc": "RunScript(scriptName,paramObj) RunScript(scriptName,paramObj,entryName) This function is used to run a script synchronously. scgp suffix. The paramObj is the optional parameter with any CG/PL object. The entryName is the optional parameter with the name of the entry point. The entry point main is used if this parameter is omitted.",
+      "doc": "This function is used to run a script synchronously. scgp suffix. The paramObj is the optional parameter with any CG/PL object. The entryName is the optional parameter with the name of the entry point. The entry point main is used if this parameter is omitted. This function returns an object constructed by the synchronous script.",
       "anchor": "RunScript",
       "minArgs": 1,
       "maxArgs": 3,
@@ -2636,7 +2684,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "Second",
@@ -2675,13 +2723,15 @@
     {
       "name": "SendEvent",
       "signatures": [
-        "SendEvent(taskRef,eventName)"
+        "SendEvent(taskRef,eventName)",
+        "SendEvent(taskRef,eventName,eventParam)"
       ],
       "params": [
         "taskRef",
-        "eventName"
+        "eventName",
+        "eventParam"
       ],
-      "doc": "SendEvent(taskRef,eventName,eventParam) This function sends an Event to a Task. It returns a null value if an Event was sent successfully, or a string with an error code otherwise (for example, when the specified Task does not exist). The taskRef value should be a Task handle. The eventName value should be a string starting with a Latin letter.",
+      "doc": "This function sends an Event to a Task. It returns a null value if an Event was sent successfully, or a string with an error code otherwise (for example, when the specified Task does not exist). The taskRef value should be a Task handle. The eventName value should be a string starting with a Latin letter.",
       "anchor": "SendEvent",
       "minArgs": 2,
       "maxArgs": 3,
@@ -2716,7 +2766,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SendXMPPIQ",
@@ -2769,14 +2819,16 @@
     {
       "name": "SetAttribute",
       "signatures": [
-        "SetAttribute(data,value,name)"
+        "SetAttribute(data,value,name)",
+        "SetAttribute(data,value,name,prefix )"
       ],
       "params": [
         "data",
         "value",
-        "name"
+        "name",
+        "prefix"
       ],
-      "doc": "SetAttribute(data,value,name,prefix ) This procedure sets an XML Object attribute for the specified name and prefix. The data value should be an XML Object, otherwise this procedure call results in a program exception. The name value should be a string containing a valid XML attribute name.",
+      "doc": "This procedure sets an XML Object attribute for the specified name and prefix. The data value should be an XML Object, otherwise this procedure call results in a program exception. The name value should be a string containing a valid XML attribute name. If the prefix parameter is specified, its value should be a null-value or a string containing a valid XML prefix.",
       "anchor": "SetAttribute",
       "minArgs": 3,
       "maxArgs": 4,
@@ -2865,13 +2917,15 @@
     {
       "name": "SetNamespace",
       "signatures": [
-        "SetNamespace(data,namespace)"
+        "SetNamespace(data,namespace)",
+        "SetNamespace(data,namespace,prefix)"
       ],
       "params": [
         "data",
-        "namespace"
+        "namespace",
+        "prefix"
       ],
-      "doc": "SetNamespace(data,namespace,prefix) This procedure associates an XML prefix with some namespace. The data value should be an XML Object, otherwise this procedure call results in a program exception. If the prefix is not specified, or its value is a null-value, then an empty string value is used. Otherwise, its value should be a string containing a valid XML prefix.",
+      "doc": "This procedure associates an XML prefix with some namespace. The data value should be an XML Object, otherwise this procedure call results in a program exception. If the prefix is not specified, or its value is a null-value, then an empty string value is used. Otherwise, its value should be a string containing a valid XML prefix.",
       "anchor": "SetNamespace",
       "minArgs": 2,
       "maxArgs": 3,
@@ -2896,12 +2950,14 @@
     {
       "name": "SetRoster",
       "signatures": [
-        "SetRoster(params)"
+        "SetRoster(params)",
+        "SetRoster(params,accountName)"
       ],
       "params": [
-        "params"
+        "params",
+        "accountName"
       ],
-      "doc": "SetRoster(params,accountName) This function updates a Roster item. If the the accountName parameter is not specified, or it value is a null-value, the current Account Roster is updated, otherwise the accountName value should be a string specifying the name of the Account to update.",
+      "doc": "This function updates a Roster item. If the the accountName parameter is not specified, or it value is a null-value, the current Account Roster is updated, otherwise the accountName value should be a string specifying the name of the Account to update. The params should be a dictionary with the following elements: peer The contact E-mail address string (\"accountName@domainName\").",
       "anchor": "SetRoster",
       "minArgs": 1,
       "maxArgs": 2,
@@ -2964,7 +3020,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "Statistics",
@@ -3148,7 +3204,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ThisTask",
@@ -3241,12 +3297,14 @@
     {
       "name": "UpdateAccountMailRule",
       "signatures": [
-        "UpdateAccountMailRule(ruleData)"
+        "UpdateAccountMailRule(ruleData)",
+        "UpdateAccountMailRule(ruleData,accountName)"
       ],
       "params": [
-        "ruleData"
+        "ruleData",
+        "accountName"
       ],
-      "doc": "UpdateAccountMailRule(ruleData,accountName)",
+      "doc": "",
       "anchor": "UpdateAccountMailRule",
       "minArgs": 1,
       "maxArgs": 2,
@@ -3256,12 +3314,14 @@
     {
       "name": "UpdateAccountSignalRule",
       "signatures": [
-        "UpdateAccountSignalRule(ruleData)"
+        "UpdateAccountSignalRule(ruleData)",
+        "UpdateAccountSignalRule(ruleData,accountName)"
       ],
       "params": [
-        "ruleData"
+        "ruleData",
+        "accountName"
       ],
-      "doc": "UpdateAccountSignalRule(ruleData,accountName) These functions modify Account Queue or Signal Rules. The ruleData parameter is a string or an array. It has the same meaning as the newRule parameter of the UpdateAccountMailRule and UpdateAccountSignalRule CLI commands.",
+      "doc": "These functions modify Account Queue or Signal Rules. The ruleData parameter is a string or an array. It has the same meaning as the newRule parameter of the UpdateAccountMailRule and UpdateAccountSignalRule CLI commands. These functions update the Rules of the the accountName Account, or the current Account if the accountName parameter is not specified or its value is a null-value.",
       "anchor": "UpdateAccountSignalRule",
       "minArgs": 1,
       "maxArgs": 2,
@@ -3296,7 +3356,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "Vars",
@@ -3337,7 +3397,7 @@
       "minArgs": 1,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "WeekDay",
@@ -3365,7 +3425,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "WriteStorageFile",
@@ -3410,18 +3470,22 @@
       "minArgs": 2,
       "maxArgs": 3,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "XMLBody",
       "signatures": [
-        "XMLBody(data,type)"
+        "XMLBody(data,type)",
+        "XMLBody(data,type,namespace)",
+        "XMLBody(data,type,namespace,index)"
       ],
       "params": [
         "data",
-        "type"
+        "type",
+        "namespace",
+        "index"
       ],
-      "doc": "XMLBody(data,type,namespace) XMLBody(data,type,namespace,index) This function returns an XML sub-element with the specified type, namespace, and position, or a null-value if there is no such sub-element. The data value should be an XML Object, otherwise this function call results in a program exception. The type value should be a null-value or a string containing a valid XML tag name.",
+      "doc": "This function returns an XML sub-element with the specified type, namespace, and position, or a null-value if there is no such sub-element. The data value should be an XML Object, otherwise this function call results in a program exception. The type value should be a null-value or a string containing a valid XML tag name.",
       "anchor": "XMLBody",
       "minArgs": 2,
       "maxArgs": 4,
@@ -3587,7 +3651,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "CancelCall",
@@ -3658,7 +3722,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "DTMF",
@@ -3699,7 +3763,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "GetPlayPosition",
@@ -3753,7 +3817,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "IsCallCompletedEvent",
@@ -3895,7 +3959,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "IsStartBridgeEvent",
@@ -3966,7 +4030,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MediaOption",
@@ -4009,7 +4073,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MIXERJITTER",
@@ -4022,7 +4086,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MIXERTHRESHOLD",
@@ -4035,7 +4099,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "MuteMixer",
@@ -4064,7 +4128,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "PendingRequestData",
@@ -4141,7 +4205,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "PLAYINLOOP",
@@ -4154,7 +4218,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "PlayTone",
@@ -4204,7 +4268,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "READDTMF",
@@ -4217,7 +4281,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ReadInput",
@@ -4260,7 +4324,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "RedirectCall",
@@ -4374,7 +4438,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "RemoteRedirector",
@@ -4387,7 +4451,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "RemoteURI",
@@ -4443,7 +4507,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SendCallNotify",
@@ -4501,7 +4565,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SendDTMF",
@@ -4529,7 +4593,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SETBRIDGEDPROVISION",
@@ -4542,7 +4606,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SetCallParameters",
@@ -4570,7 +4634,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SETDTMFSENDMODE",
@@ -4583,7 +4647,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SetForeignCredentials",
@@ -4596,7 +4660,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SETINTERCEPTPARAMS",
@@ -4609,7 +4673,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SetInterruptOnDTMF",
@@ -4683,7 +4747,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SetReferMode",
@@ -4696,7 +4760,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SetSecondaryForCall",
@@ -4709,7 +4773,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": false,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SETTRANSFERREPORTMODE",
@@ -4722,7 +4786,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "SignalOption",
@@ -4798,7 +4862,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "StartTransfer",
@@ -4826,7 +4890,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "TransferCall",
@@ -4867,7 +4931,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "WAITDTMF",
@@ -4880,7 +4944,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     }
   ],
   "webapp": [
@@ -5036,7 +5100,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
-      "source": "supplement"
+      "source": "registry"
     },
     {
       "name": "ProcessWSSP",

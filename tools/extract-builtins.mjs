@@ -3,13 +3,13 @@
 // CommuniGate Pro developer documentation, so the TextMate grammars and the
 // language server never hand-maintain a separate copy of the function list.
 //
-// Input is the Markdown form of the pages published at
-// https://doc.communigatepro.ru/development/ - point CGPRO_DOCS_ROOT at a
-// directory holding CGPL.md, PBXApp.md, WebApp.md and WSSP.md.
+// Input is the pages published at https://doc.communigatepro.ru/development/,
+// either as fetched HTML (tools/fetch-docs.mjs) or as a local Markdown copy.
+// CGPRO_DOCS_ROOT points at the directory holding them.
 //
-// Two heading shapes are used across those documents:
-//   CGPL.md              #### `Name(args)` {#Anchor}
-//   PBXApp/WebApp/WSSP.md - `Name(args)`        (top-level bullet, column 0)
+// Two shapes are used across those documents:
+//   the CG/PL page          #### `Name(args)` {#Anchor}
+//   PBXApp/WebApp/WSSP      - `Name(args)`     (top-level bullet, column 0)
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -70,14 +70,40 @@ function extractFromHtml(html) {
     // The description runs to the next heading of any level.
     const rest = html.slice(bodyStart);
     const nextHeading = rest.search(/<h[2-6][\s>]/);
-    const body = nextHeading < 0 ? rest : rest.slice(0, nextHeading);
-    entries.push({
-      name: nameMatch[1],
-      signature: sig,
-      anchor: m[2] || null,
-      params: paramsOf(sig),
-      doc: summarize(htmlToText(body)),
-    });
+    let body = nextHeading < 0 ? rest : rest.slice(0, nextHeading);
+
+    // Overloads are written as paragraphs of bare code spans directly after
+    // the heading, e.g. DeactivateMeeting(setName,key) in the heading with
+    // DeactivateMeeting(setName,key,parameter) in the paragraph below. Pull
+    // those out as further signatures - otherwise they are neither offered in
+    // signature help nor removed from the prose, and every hover for such a
+    // function opens with a stray signature.
+    const overloads = [];
+    const LEADING_CODE_PARA = /^\s*<p>\s*((?:<code>[^<]*<\/code>\s*(?:<br\s*\/?>\s*)?)+)<\/p>/;
+    for (;;) {
+      const lead = LEADING_CODE_PARA.exec(body);
+      if (!lead) break;
+      const spans = [...lead[1].matchAll(/<code>([^<]*)<\/code>/g)].map((c) => decodeEntities(c[1]).trim());
+      // Only consume the paragraph if every span really is a signature for
+      // this same function; otherwise it is ordinary prose that happens to
+      // start with code.
+      if (!spans.length || !spans.every((s) => s.toLowerCase().startsWith(`${nameMatch[1].toLowerCase()}(`))) {
+        break;
+      }
+      overloads.push(...spans);
+      body = body.slice(lead[0].length);
+    }
+
+    const doc = summarize(htmlToText(body));
+    for (const signature of [sig, ...overloads]) {
+      entries.push({
+        name: nameMatch[1],
+        signature,
+        anchor: m[2] || null,
+        params: paramsOf(signature),
+        doc,
+      });
+    }
   }
 
   // Bullet form: a list item whose first paragraph holds nothing but code
@@ -306,18 +332,20 @@ for (const [cat, min] of Object.entries(MIN_EXPECTED)) {
   }
 }
 
-// Merge in tools/builtins-supplement.json - a curated table of built-ins the
-// published documentation does not describe, plus the argument counts the
-// prose never states. It exists because real CG/PL calls plenty of functions
-// that no document mentions (TextToObject, StartPBXTask and friends); without
-// it those show up as unknown calls in perfectly good code. The two inputs
-// are complementary: the supplement supplies existence and arity, the
-// documentation supplies the descriptions.
-const supplementFile = path.resolve(here, 'builtins-supplement.json');
-let merged = { fromDocsOnly: 0, fromSupplementOnly: 0, both: 0 };
-if (existsSync(supplementFile)) {
-  const supplement = JSON.parse(readFileSync(supplementFile, 'utf8'));
-  for (const [env, entries] of Object.entries(supplement)) {
+// Merge in tools/builtins-registry.json - the full roster of built-ins the
+// server provides, each with its argument counts and whether it is a
+// function or a procedure. It covers every built-in, not just the obscure
+// ones: the documentation states no argument counts anywhere, so the roster
+// supplies those even for thoroughly documented functions. It also carries
+// the ones no document mentions (TextToObject, StartPBXTask and friends),
+// which would otherwise be reported as unknown calls in perfectly good code.
+// The two inputs are complementary: the roster supplies existence and arity,
+// the documentation supplies the descriptions.
+const registryFile = path.resolve(here, 'builtins-registry.json');
+let merged = { fromDocsOnly: 0, fromRegistryOnly: 0, both: 0 };
+if (existsSync(registryFile)) {
+  const registry = JSON.parse(readFileSync(registryFile, 'utf8'));
+  for (const [env, entries] of Object.entries(registry)) {
     // Environments outside the three the grammars know about fold into the
     // core list rather than being dropped.
     const target = ['cgpl', 'pbxapp', 'webapp'].includes(env) ? env : 'cgpl';
@@ -341,9 +369,9 @@ if (existsSync(supplementFile)) {
           minArgs: e.minArgs,
           maxArgs: e.maxArgs,
           isFunction: e.isFunction,
-          source: 'supplement',
+          source: 'registry',
         });
-        merged.fromSupplementOnly++;
+        merged.fromRegistryOnly++;
       }
     }
     bucket.sort((a, b) => a.name.localeCompare(b.name));
@@ -357,12 +385,12 @@ if (existsSync(supplementFile)) {
     }
   }
   console.log(
-    `merged with the supplement: ${merged.both} documented and supplemented, ` +
-      `${merged.fromSupplementOnly} undocumented, ` +
+    `merged with the registry: ${merged.both} documented and registered, ` +
+      `${merged.fromRegistryOnly} registered but undocumented, ` +
       `${merged.fromDocsOnly} documented only`,
   );
 } else {
-  console.log('note: tools/builtins-supplement.json not found - built-ins are docs-derived only');
+  console.log('note: tools/builtins-registry.json not found - built-ins are docs-derived only');
 }
 
 const outFile = path.resolve(here, 'builtins.json');
