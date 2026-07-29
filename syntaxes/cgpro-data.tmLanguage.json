@@ -1,0 +1,114 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CommuniGate Pro Data",
+  "scopeName": "source.cgpro-data",
+  "fileTypes": [
+    "data",
+    "settings"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#dictKey"
+    },
+    {
+      "include": "#values"
+    },
+    {
+      "include": "#punctuation"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.cgpro-data",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
+          "name": "comment.line.double-slash.cgpro-data",
+          "begin": "//",
+          "end": "$"
+        }
+      ]
+    },
+    "dictKey": {
+      "patterns": [
+        {
+          "comment": "dictionary key before the = sign",
+          "match": "(\"(?:[^\"\\\\]|\\\\.)*\"|[A-Za-z0-9@_.-]+)\\s*(=)",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.key.cgpro-data"
+            },
+            "2": {
+              "name": "keyword.operator.cgpro-data"
+            }
+          }
+        }
+      ]
+    },
+    "values": {
+      "patterns": [
+        {
+          "name": "constant.language.null.cgpro-data",
+          "match": "#NULL#"
+        },
+        {
+          "name": "constant.other.timestamp.cgpro-data",
+          "match": "#TPAST|#TFUTURE|#T[0-9]{2}-[0-9]{2}-[0-9]{4}(?:_[0-9]{2}:[0-9]{2}:[0-9]{2})?"
+        },
+        {
+          "name": "constant.other.ipaddress.cgpro-data",
+          "match": "#I\\[[0-9A-Fa-f:.]*\\](?::[0-9]+)?"
+        },
+        {
+          "name": "constant.numeric.cgpro-data",
+          "match": "#-?(?:0x[0-9A-Fa-f]+|0o[0-7]+|0b[01]+|[0-9]+)"
+        },
+        {
+          "name": "string.unquoted.datablock.cgpro-data",
+          "match": "\\[[A-Za-z0-9+/=\\s]*\\]"
+        },
+        {
+          "name": "string.quoted.double.cgpro-data",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.cgpro-data",
+              "match": "\\\\(?:[rnetf\\\\\"]|[0-9]{3}|u'[0-9A-Fa-f]+')"
+            }
+          ]
+        },
+        {
+          "name": "string.unquoted.atom.cgpro-data",
+          "match": "[A-Za-z][A-Za-z0-9@_.-]*"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.terminator.statement.cgpro-data",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.comma.cgpro-data",
+          "match": ","
+        },
+        {
+          "name": "punctuation.section.braces.cgpro-data",
+          "match": "[{}]"
+        },
+        {
+          "name": "punctuation.section.parens.cgpro-data",
+          "match": "[()]"
+        }
+      ]
+    }
+  }
+}

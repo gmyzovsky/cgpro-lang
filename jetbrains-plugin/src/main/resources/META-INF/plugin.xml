@@ -1,0 +1,45 @@
+<idea-plugin>
+    <id>com.gmyzovsky.cgpro-lang</id>
+    <name>CommuniGate Pro Languages</name>
+    <vendor url="https://github.com/gmyzovsky/cgpro-lang">German Myzovsky</vendor>
+
+    <description><![CDATA[
+    Syntax highlighting for CommuniGate Pro's procedural languages: CG/PL (.wcgp, .wcgi, .sppr, .sppi, .scgp),
+    WSSP (.wssp, .wssi), and the Data literal format (.data, .settings).
+    <br/>
+    Grammars are generated from the CommuniGate Pro developer documentation - see
+    <a href="https://github.com/gmyzovsky/cgpro-lang">the repository</a> for details.
+  ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.textmate</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="CGPL" implementationClass="com.gmyzovsky.cgprolang.CgplFileType"
+                   fieldName="INSTANCE" language="CGPL" extensions="wcgp;wcgi;sppr;sppi;scgp"/>
+        <fileType name="WSSP" implementationClass="com.gmyzovsky.cgprolang.WsspFileType"
+                   fieldName="INSTANCE" language="WSSP" extensions="wssp;wssi"/>
+        <fileType name="CGProData" implementationClass="com.gmyzovsky.cgprolang.CgproDataFileType"
+                   fieldName="INSTANCE" language="CGProData" extensions="data;settings"/>
+
+        <textmate.bundleProvider implementation="com.gmyzovsky.cgprolang.CgproTextMateBundleProvider"/>
+
+        <!-- Defining a custom FileType/Language breaks the automatic TextMate <-> filetype
+             association, so the highlighter has to be wired back to TextMate explicitly for
+             each language - same workaround used by lsp4ij and jetbrains-plugin-fss. -->
+        <editorHighlighterProvider filetype="CGPL"
+                                    implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateEditorHighlighterProvider"/>
+        <lang.syntaxHighlighterFactory language="CGPL"
+                                        implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateSyntaxHighlighterFactory"/>
+
+        <editorHighlighterProvider filetype="WSSP"
+                                    implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateEditorHighlighterProvider"/>
+        <lang.syntaxHighlighterFactory language="WSSP"
+                                        implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateSyntaxHighlighterFactory"/>
+
+        <editorHighlighterProvider filetype="CGProData"
+                                    implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateEditorHighlighterProvider"/>
+        <lang.syntaxHighlighterFactory language="CGProData"
+                                        implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateSyntaxHighlighterFactory"/>
+    </extensions>
+</idea-plugin>

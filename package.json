@@ -1,0 +1,101 @@
+{
+  "name": "cgpro-lang",
+  "displayName": "CommuniGate Pro Languages",
+  "description": "Syntax highlighting for CommuniGate Pro's procedural languages: CG/PL, PBXApp/WebApp CG/PL extensions, WSSP, and the Data literal format",
+  "version": "0.1.0",
+  "publisher": "gmyzovsky",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmyzovsky/cgpro-lang"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Programming Languages"],
+  "private": true,
+  "main": "./client/out/extension",
+  "activationEvents": ["onLanguage:cgpl"],
+  "scripts": {
+    "extract:builtins": "node tools/extract-builtins.mjs",
+    "build:grammars": "node tools/build-grammars.mjs",
+    "build:server": "tsc -p server",
+    "build:client": "tsc -p client",
+    "build": "npm run extract:builtins && npm run build:grammars && npm run build:server && npm run build:client",
+    "validate": "node tools/validate.mjs",
+    "validate:parser": "node tools/parser-sanity.mjs",
+    "vscode:prepublish": "npm run build"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.4.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.1.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "cgpl",
+        "aliases": ["CommuniGate Pro CG/PL", "CG/PL"],
+        "extensions": [".wcgp", ".wcgi", ".sppr", ".sppi", ".scgp"],
+        "configuration": "./language-configuration/cgpl.json"
+      },
+      {
+        "id": "wssp",
+        "aliases": ["CommuniGate Pro WSSP", "WSSP"],
+        "extensions": [".wssp", ".wssi"],
+        "configuration": "./language-configuration/wssp.json"
+      },
+      {
+        "id": "cgpro-data",
+        "aliases": ["CommuniGate Pro Data"],
+        "extensions": [".data", ".settings"],
+        "configuration": "./language-configuration/cgpro-data.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cgpl",
+        "scopeName": "source.cgpl",
+        "path": "./syntaxes/cgpl.tmLanguage.json"
+      },
+      {
+        "language": "wssp",
+        "scopeName": "text.html.wssp",
+        "path": "./syntaxes/wssp.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.cgpl": "cgpl"
+        }
+      },
+      {
+        "language": "cgpro-data",
+        "scopeName": "source.cgpro-data",
+        "path": "./syntaxes/cgpro-data.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "CommuniGate Pro CG/PL",
+      "properties": {
+        "cgpl.reportUnknownCalls": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn about calls that are neither a built-in nor defined or declared in the file."
+        },
+        "cgpl.reportArity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Report built-in calls with an argument count the server would reject."
+        },
+        "cgpl.maxProblems": {
+          "type": "number",
+          "default": 200,
+          "description": "Maximum number of problems reported per file."
+        }
+      }
+    }
+  }
+}

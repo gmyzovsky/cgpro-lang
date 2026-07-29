@@ -1,0 +1,2086 @@
+{
+  "cgpl": [
+    {
+      "name": "ActivateMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "addElement",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "APPENDSITEFILE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "AppendStorageFile",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "ApplicationSettings",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "AppToXML",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "BannerRead",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "BASE32DECODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "BASE32ENCODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Base64Decode",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Base64Encode",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "BASE64URLDECODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "BASE64URLENCODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "CallHelper",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "CheckQueue",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ClearMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "Convert",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "copy",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "CREATEMAILBOX",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "CreateMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "CREATESITEDIRECTORY",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "CreateStorageDirectory",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "CRLF",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "CRYDECRYPT",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "CryDigest",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "CRYENCRYPT",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "CRYSIGN",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DATASETCREATE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DATASETDELETE",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DATASETLIST",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DATASETLISTSUBSETS",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DATASETREMOVE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "DatasetSet",
+      "isFunction": true,
+      "minArgs": 4,
+      "maxArgs": 4
+    },
+    {
+      "name": "Date",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DateByMonthDay",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DateByYearDay",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "DateNumber",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DeactivateMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "DELETEMAILBOX",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "DELETESITEDIRECTORY",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DELETESITEFILE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DeleteStorageDirectory",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DeleteStorageFile",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Dequeue",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "DIRECTORYMODIFY",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DirectorySearch",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "DoBalance",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "EmailDomainPart",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "EmailToSIPURI",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "EmailUserPart",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "EmptyData",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "Enqueue",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 3
+    },
+    {
+      "name": "EOL",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "ExecuteCLI",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "find",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "findContact",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "FindMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "FindRegEx",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "findSubString",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "FINDSUBSTRINGEX",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "GenerateJWTToken",
+      "isFunction": true,
+      "minArgs": 4,
+      "maxArgs": 4
+    },
+    {
+      "name": "GetAccountInfo",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GetAccountPreferences",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetAccountSettings",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetApplicationStatus",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "getAttribute",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "GetLanguage",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetMailboxACLs",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GETMAILBOXALIASES",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GetMailboxSubscription",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GETMESSAGEATTR",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "getNamespace",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetPreference",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GETPREFIX",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "GETTIMEZONENAME",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GMTTime",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GMTToLocal",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "HOUR",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "HTTPCall",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "Impersonate",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "insertElement",
+      "isFunction": false,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "INVERT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IPADDRESS",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsArray",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsData",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsDate",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsDictionary",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsDigit",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ISIPADDRESS",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ISMAILBOXNOTIFYEVENT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsNumber",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsString",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsTask",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsWhiteSpaces",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsXML",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "JSONToObject",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "length",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ListMailboxes",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ListSiteFiles",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ListStorageFiles",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "LocalTime",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "LocalToGMT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "LOCKSTORAGEFILE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MailboxAppend",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MAILBOXAUDIOBYUID",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MailboxCopy",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MAILBOXCOPYBYUID",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MailboxExpunge",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MailboxFlagsByUID",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MAILBOXFORWARDBYUID",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "mailboxInternalTimeByUID",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MAILBOXORIGUIDBYUID",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "mailboxRedirectByUID",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MailboxSetFlags",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MAILBOXSETFLAGSBYUID",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MAILBOXUIDBYORIGUID",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MailboxUIDs",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "Max",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MessageBody",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "messageFields",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MessageHeader",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "MessagePart",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "Min",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MINUTE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Month",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MonthDay",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MonthNum",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MyDomain",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "MyEmail",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "NewArray",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "NewDictionary",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "NewXML",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 3
+    },
+    {
+      "name": "Number",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "OBJECTCLASS",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ObjectToJSON",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "objectToString",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ObjectToXML",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "OpenCalendar",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "OpenMailbox",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "OpenMailboxView",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "OpenMessage",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "PhoneNumberToSIPURI",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "PROCESSCALENDAR",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "QRCode",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RADIUSCALL",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RandomData",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RandomNumber",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "Range",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "ReadCallInfo",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadEnvirFile",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "READENVIROBJECT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "READFILE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadGroupMembers",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadQueue",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadRoster",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 1
+    },
+    {
+      "name": "READSITEFILE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "READSKINFILE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "ReadSkinObject",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 3
+    },
+    {
+      "name": "ReadStorageFile",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadStorageFileAttr",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "ReadTelnums",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 1
+    },
+    {
+      "name": "removeElement",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RemoveMeeting",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RENAMEMAILBOX",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "RENAMESITEDIRECTORY",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RENAMESITEFILE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RenameStorageDirectory",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RenameStorageFile",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "RouteAddress",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "ROUTEENUM",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "RUNSCRIPT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 3
+    },
+    {
+      "name": "SAME",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SCOPEVARS",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "SECOND",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SendEMail",
+      "isFunction": true,
+      "minArgs": 5,
+      "maxArgs": 5
+    },
+    {
+      "name": "SendEvent",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "SendInstantMessage",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "SendPushNotifications",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SendXMPPIQ",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "SetAccountPreferences",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SetApplicationStatus",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "setAttribute",
+      "isFunction": false,
+      "minArgs": 3,
+      "maxArgs": 4
+    },
+    {
+      "name": "SETCASESENSITIVE",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SetLanguage",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetMailboxACLs",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SETMAILBOXALIASES",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SETMAILBOXSUBSCRIPTION",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "setNamespace",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "SETROSTER",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "SetTimeZone",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SIPURItoEmail",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SortStrings",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "StartPBXTask",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "statistics",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "STORECDR",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "String",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SubmitEmail",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SUBSCRIBEEVENTS",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "subString",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "SYNC",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SyncDelay",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SysLog",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SYSPROFILE",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SystemInfo",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "TextToObject",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ThisTask",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "TimeOfDay",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ToLowerCase",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ToObject",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "TOTPCODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "TOUPPERCASE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "UPDATEACCOUNTMAILRULE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "UpdateAccountSignalRule",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "UPDATEMESSAGEATTR",
+      "isFunction": true,
+      "minArgs": 3,
+      "maxArgs": 3
+    },
+    {
+      "name": "UPDATESTATISTICS",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "Vars",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "void",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "WAVLASTSILENCE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 3
+    },
+    {
+      "name": "WeekDay",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "WRITESITEFILE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "WriteStorageFile",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "WriteStorageFileAttr",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "WSSPCOMPOSE",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 3
+    },
+    {
+      "name": "xmlBody",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 4
+    },
+    {
+      "name": "xmlPrefix",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "XMLTOAPP",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "xmlType",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Year",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "YearDay",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    }
+  ],
+  "pbxapp": [
+    {
+      "name": "AcceptBridge",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "AcceptCall",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "AcceptTransfer",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "AttachMixer",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "BreakBridge",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "CALLDIALOGDATAEX",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "CancelCall",
+      "isFunction": false,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "ClearDTMF",
+      "isFunction": false,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "DetachMixer",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Disconnect",
+      "isFunction": false,
+      "minArgs": 0,
+      "maxArgs": 2
+    },
+    {
+      "name": "DISCONNECTEX",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "dtmf",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "ForkCall",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GetPlayDuration",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GetPlayPosition",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "IncomingRequestURI",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "IsBreakBridgeEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsBridged",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "IsCallCompletedEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsCallInfoEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsCallProvisionEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsCallTransferredEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsConnected",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "IsDisconnectEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsHalfConnected",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "IsInstantMessageEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsPlayCompleted",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "ISREGISTERREPORTEVENT",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsStartBridgeEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsStartTransferEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "IsXMPPIQEvent",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "LocalURI",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "MEDIACHANNELOPTION",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MediaOption",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "MixerAttached",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "MIXERDELAY",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MIXERJITTER",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MIXERTHRESHOLD",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "MuteMixer",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "MyNamedTaskName",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "PendingRequestData",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "PENDINGREQUESTEXDATA",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Play",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "PlayFile",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "PLAYFILEINLOOP",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "PLAYINLOOP",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "PlayTone",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 4
+    },
+    {
+      "name": "ProvisionCall",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "PROVISIONCALLEX",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "READDTMF",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "ReadInput",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "Record",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RECORDSILENCE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RedirectCall",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RejectBridge",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "rejectCall",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "RejectTransfer",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "ReleaseMediaChannel",
+      "isFunction": false,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteAuthentication",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteIPAddress",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteRealName",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteRedirector",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteURI",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RouteLocalURI",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SendCallInfo",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SENDCALLINFORESPONSE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SENDCALLNOTIFY",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SENDCALLOPTIONS",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SendCallRegister",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SENDDIALOGIM",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SendDTMF",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetBridgeBreakMode",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SETBRIDGEDPROVISION",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetCallParameters",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SETDTMFREADMODE",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SETDTMFSENDMODE",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetForeignCredentials",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SETINTERCEPTPARAMS",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetInterruptOnDTMF",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetLocalContactParameter",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "SETLOCALHOLD",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetPlayPosition",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SETPROVISIONCODE",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetReferMode",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetSecondaryForCall",
+      "isFunction": false,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "SETTRANSFERREPORTMODE",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SignalOption",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "StartBridge",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "StartBridgedCall",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "StartCall",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "StartMixedCall",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "StartTransfer",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "StartTransferCall",
+      "isFunction": true,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "TransferCall",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "TRANSFERSUPPORTED",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "UPDATEPROVISIONEDCALL",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "WAITDTMF",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    }
+  ],
+  "webapp": [
+    {
+      "name": "AddHTTPResponseField",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetHTTPBinaryParameter",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetHTTPData",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetHTTPField",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "GetHTTPMethod",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetHTTPParameter",
+      "isFunction": true,
+      "minArgs": 1,
+      "maxArgs": 2
+    },
+    {
+      "name": "GetHTTPQuery",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetHTTPResource",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetHTTPSubtype",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "GetHTTPType",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "LOCALIPADDRESS",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "ProcessWSSP",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    },
+    {
+      "name": "PROXIEDIPADDRESS",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "RemoteIPAddress",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "SENDHTTPCONTINUE",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "SessionData",
+      "isFunction": true,
+      "minArgs": 0,
+      "maxArgs": 0
+    },
+    {
+      "name": "SetHTTPResponseCode",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetHTTPResponseData",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    },
+    {
+      "name": "SetHTTPResponseType",
+      "isFunction": false,
+      "minArgs": 2,
+      "maxArgs": 2
+    }
+  ],
+  "sync": [
+    {
+      "name": "SetResult",
+      "isFunction": false,
+      "minArgs": 1,
+      "maxArgs": 1
+    }
+  ]
+}

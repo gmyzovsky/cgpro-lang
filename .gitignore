@@ -1,0 +1,14 @@
+node_modules/
+*.vsix
+
+# JetBrains plugin (Gradle) build output
+jetbrains-plugin/build/
+jetbrains-plugin/.gradle/
+jetbrains-plugin/.kotlin/
+jetbrains-plugin/.intellijPlatform/
+
+.DS_Store
+
+# compiled LSP server / client
+server/out/
+client/out/

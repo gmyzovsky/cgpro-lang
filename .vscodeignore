@@ -1,0 +1,6 @@
+jetbrains-plugin/**
+node_modules/**
+tools/vendor/**
+.gitignore
+.git/**
+*.vsix

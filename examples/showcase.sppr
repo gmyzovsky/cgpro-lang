@@ -1,0 +1,63 @@
+// ============================================================
+//  cgpro-lang: showcase file. Open it to see every scope the
+//  CG/PL grammar produces. Each line is labelled with the
+//  TextMate scope it should get.
+// ============================================================
+/* block comment                    -> comment.block */
+
+const cFlag = true, cName = "text";  // keyword.other.declaration / constant.language
+
+var taskScopedVar;                   // keyword.other.declaration + variable.other
+
+procedure pbx_tools::helper(a, b) external;   // entity.name.namespace + entity.name.function
+function  Factorial(x) forward;               // keyword.other
+
+entry main is
+  // --- built-ins: THE point of this file ---------------------
+  // These must look different from user-defined calls below.
+  var d = NewDictionary();           // support.function.builtin
+  Void(SysLog("canonical casing"));  // support.function.builtin
+  void(Syslog("lower/odd casing"));  // support.function.builtin  (case-insensitive!)
+  var n = length(d);                 // support.function.builtin
+  var s = objectToString(d);         // support.function.builtin
+
+  // --- PBXApp built-ins -------------------------------------
+  if AcceptCall() != null then stop; end if;   // support.function.pbxapp
+  PlayFile("greeting");                        // support.function.pbxapp
+
+  // --- WebApp built-ins -------------------------------------
+  SetHTTPResponseCode(200);          // support.function.webapp
+
+  // --- user-defined calls (should differ from built-ins) ----
+  myOwnHelper(1);                    // entity.name.function
+  pbx_tools::helper(1, 2);           // entity.name.namespace + entity.name.function
+
+  // --- literals ---------------------------------------------
+  var num = 42, frac = 3.14;         // constant.numeric
+  var str = "escape \e \t \u'2764'"; // string.quoted.double + constant.character.escape
+  var yes = true, no = false, nul = null;      // constant.language
+
+  // --- operators --------------------------------------------
+  n = n + 1; n += 2; n *= 3;                   // keyword.operator
+  if n > 1 and then n < 10 then n = 0; end if; // keyword.operator.word
+  if n == 1 or else n != 2 then n = 1; end if; // keyword.operator.word
+  var t = n > 5 ? "big" : "small";             // keyword.operator
+
+  // --- both loop dialects -----------------------------------
+  while n < 10 loop n += 1; end loop;          // keyword.control
+  for (var i = 0; i < 3; i += 1) { n += i; }   // keyword.control
+  for (;;) { exitif !IsDictionary(d); }        // keyword.control (empty for)
+
+  // --- accessors --------------------------------------------
+  d.key = 1;                                   // punctuation.accessor
+  d.(cName) = 2;                               // computed key
+  d.AddElement("x");                           // method-call form
+end entry;
+
+function Factorial(x) {
+  return x <= 1 ? 1 : Factorial(x - 1) * x;
+}
+
+procedure myOwnHelper(v) is
+  return;
+end procedure;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>cgpl</string>
+	<key>description</key>
+	<string>TextMate bundle for CommuniGate Pro CG/PL</string>
+	<key>uuid</key>
+	<string>687eacbb-828b-406c-b29e-3386254ecb56</string>
+</dict>
+</plist>

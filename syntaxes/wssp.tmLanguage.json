@@ -1,0 +1,183 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CommuniGate Pro WSSP",
+  "scopeName": "text.html.wssp",
+  "fileTypes": [
+    "wssp",
+    "wssi"
+  ],
+  "patterns": [
+    {
+      "include": "#structural"
+    },
+    {
+      "include": "#textElement"
+    },
+    {
+      "include": "text.html.basic"
+    }
+  ],
+  "repository": {
+    "wsspStrings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.wssp",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.wssp",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "wsspNumbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.wssp",
+          "match": "\\b[0-9]+(?:\\.[0-9]+)?\\b"
+        }
+      ]
+    },
+    "textElement": {
+      "comment": "%%[HTML:|URL:]expression%% text substitution",
+      "name": "meta.embedded.line.wssp",
+      "begin": "%%",
+      "end": "%%",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.wssp"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.wssp"
+        }
+      },
+      "patterns": [
+        {
+          "name": "keyword.other.encoder.wssp",
+          "match": "\\b(?i:HTML|URL):"
+        },
+        {
+          "include": "#wsspStrings"
+        },
+        {
+          "include": "#wsspNumbers"
+        },
+        {
+          "name": "support.function.wssp",
+          "match": "(?i:\\b(?:HASPARENTMAILBOX|SELECTEDLANGUAGE|SELECTEDTIMEZONE|ACCOUNTSETTINGS|EMPTYDICTIONARY|REQUESTRESOURCE|REQUESTSOURCEIP|KNOWNTIMEZONES|KNOWNCHARSETS|RANDOMELEMENT|REQUESTSECURE|SERVERVERSION|DOESNOTEXIST|EQUALSNOCASE|ISDICTIONARY|CURRENTTIME|EMPTYSTRING|DICTIONARY|EMPTYARRAY|INCLUDEARG|MONTHNAMES|BOOLARRAY|TRANSLATE|CONTAINS|ISNUMBER|ISSTRING|REQUIRED|SETTINGS|CHECKED|ISARRAY|ISFIRST|ISINDEX|SESSION|EQUALS|EXISTS|ISDATA|ISDATE|ISEVEN|ISHALF|ISLAST|STRING|ARRAY|YESNO|NULL|NOT)\\b)(?=\\s*\\()"
+        },
+        {
+          "name": "variable.other.scanner.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\[\\])"
+        },
+        {
+          "comment": "word separators inside function args: EQUALS(a AND b), ISINDEX(x IN s), TRANSLATE(x USING d)",
+          "name": "keyword.operator.word.wssp",
+          "match": "\\b(?i:AND|IN|USING)\\b"
+        },
+        {
+          "name": "entity.name.function.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()"
+        },
+        {
+          "name": "keyword.operator.wssp",
+          "match": "[|&^!]"
+        },
+        {
+          "name": "variable.other.readwrite.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        },
+        {
+          "name": "punctuation.accessor.wssp",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.section.brackets.wssp",
+          "match": "[\\[\\]]"
+        },
+        {
+          "name": "punctuation.section.parens.wssp",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.separator.wssp",
+          "match": ","
+        }
+      ]
+    },
+    "structural": {
+      "comment": "<!--%%IF ...--> ... <!--%%ENDIF--> structural elements",
+      "name": "meta.embedded.block.wssp",
+      "begin": "<!--%%",
+      "end": "-->",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.begin.wssp"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.tag.end.wssp"
+        }
+      },
+      "patterns": [
+        {
+          "name": "keyword.control.wssp",
+          "match": "(?i:\\b(?:LOCALCALENDARDATECONTROL|LOCALCALENDARTIMEMENU|CALENDARDATECONTROL|CALENDARTIMEMENU|DAYTIMEMENU|MAILBOXMENU|NUMERICMENU|FOREACHINC|FOREACHREV|STRINGMENU|BOOLMENU|EMPTYFOR|EMTPYFOR|ENUMMENU|SIZEMENU|TIMEMENU|FOREACH|INCLUDE|ENDFOR|FORALL|ENDIF|ELIF|ELSE|IF)\\b)"
+        },
+        {
+          "include": "#wsspStrings"
+        },
+        {
+          "include": "#wsspNumbers"
+        },
+        {
+          "name": "support.function.wssp",
+          "match": "(?i:\\b(?:HASPARENTMAILBOX|SELECTEDLANGUAGE|SELECTEDTIMEZONE|ACCOUNTSETTINGS|EMPTYDICTIONARY|REQUESTRESOURCE|REQUESTSOURCEIP|KNOWNTIMEZONES|KNOWNCHARSETS|RANDOMELEMENT|REQUESTSECURE|SERVERVERSION|DOESNOTEXIST|EQUALSNOCASE|ISDICTIONARY|CURRENTTIME|EMPTYSTRING|DICTIONARY|EMPTYARRAY|INCLUDEARG|MONTHNAMES|BOOLARRAY|TRANSLATE|CONTAINS|ISNUMBER|ISSTRING|REQUIRED|SETTINGS|CHECKED|ISARRAY|ISFIRST|ISINDEX|SESSION|EQUALS|EXISTS|ISDATA|ISDATE|ISEVEN|ISHALF|ISLAST|STRING|ARRAY|YESNO|NULL|NOT)\\b)(?=\\s*\\()"
+        },
+        {
+          "name": "variable.other.scanner.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\[\\])"
+        },
+        {
+          "comment": "word separators inside function args: EQUALS(a AND b), ISINDEX(x IN s), TRANSLATE(x USING d)",
+          "name": "keyword.operator.word.wssp",
+          "match": "\\b(?i:AND|IN|USING)\\b"
+        },
+        {
+          "name": "entity.name.function.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()"
+        },
+        {
+          "name": "keyword.operator.wssp",
+          "match": "[|&^!]"
+        },
+        {
+          "name": "variable.other.readwrite.wssp",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        },
+        {
+          "name": "punctuation.accessor.wssp",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.section.brackets.wssp",
+          "match": "[\\[\\]]"
+        },
+        {
+          "name": "punctuation.section.parens.wssp",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.separator.wssp",
+          "match": ","
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CommuniGate Pro CG/PL",
+  "scopeName": "source.cgpl",
+  "fileTypes": [
+    "wcgp",
+    "wcgi",
+    "sppr",
+    "sppi",
+    "scgp"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#codeSectionDecl"
+    },
+    {
+      "include": "#varConstDecl"
+    },
+    {
+      "include": "#controlKeywords"
+    },
+    {
+      "include": "#storageKeywords"
+    },
+    {
+      "include": "#wordOperators"
+    },
+    {
+      "include": "#qualifiedName"
+    },
+    {
+      "include": "#builtinCalls"
+    },
+    {
+      "include": "#genericCall"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#punctuation"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.cgpl",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
+          "name": "comment.line.double-slash.cgpl",
+          "begin": "//",
+          "end": "$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.cgpl",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.cgpl",
+              "match": "\\\\(?:[rnetf\\\\\"]|[0-9]{3}|u'[0-9A-Fa-f]+')"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.cgpl",
+          "match": "\\b[0-9]+(?:\\.[0-9]+)?\\b|\\B\\.[0-9]+\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.cgpl",
+          "match": "\\b(?i:true|false|null)\\b"
+        }
+      ]
+    },
+    "controlKeywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.cgpl",
+          "match": "(?i:\\b(?:exitif|return|while|spawn|then|elif|else|loop|stop|end|for|if|by)\\b)"
+        }
+      ]
+    },
+    "storageKeywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.cgpl",
+          "match": "(?i:\\b(?:procedure|external|function|forward|entry|is)\\b)"
+        }
+      ]
+    },
+    "wordOperators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.word.cgpl",
+          "match": "(?i:\\b(?:and\\s+then|or\\s+else|and|or|xor|not)\\b)"
+        }
+      ]
+    },
+    "qualifiedName": {
+      "patterns": [
+        {
+          "match": "\\b([A-Za-z_][A-Za-z0-9_]*)(::)([A-Za-z_][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "entity.name.namespace.cgpl"
+            },
+            "2": {
+              "name": "punctuation.accessor.cgpl"
+            },
+            "3": {
+              "name": "entity.name.function.cgpl"
+            }
+          }
+        }
+      ]
+    },
+    "builtinCalls": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.cgpl",
+          "match": "(?i:\\b(?:MailboxInternalTimeByUID|UpdateAccountSignalRule|CreateStorageDirectory|DeleteStorageDirectory|GetMailboxSubscription|RenameStorageDirectory|SetMailboxSubscription|GetAccountPreferences|SendPushNotifications|SetAccountPreferences|UpdateAccountMailRule|GetApplicationStatus|IsMailboxNotifyEvent|MailboxRedirectByUID|MAILBOXSETFLAGSBYUID|SetApplicationStatus|WriteStorageFileAttr|ApplicationSettings|CREATESITEDIRECTORY|DELETESITEDIRECTORY|MailboxForwardByUID|MailboxOrigUIDByUID|MailboxUIDByOrigUID|PhoneNumberToSIPURI|ReadStorageFileAttr|RENAMESITEDIRECTORY|DATASETLISTSUBSETS|GetAccountSettings|SendInstantMessage|AppendStorageFile|DeactivateMeeting|DeleteStorageFile|GetMailboxAliases|MailboxAudioByUID|MailboxFlagsByUID|RenameStorageFile|SetMailboxAliases|UpdateMessageAttr|GenerateJWTToken|ListStorageFiles|MAILBOXCOPYBYUID|ReadGroupMembers|SetCaseSensitive|UPDATESTATISTICS|WriteStorageFile|ActivateMeeting|Base64UrlDecode|Base64UrlEncode|DirectoryModify|DirectorySearch|EmailDomainPart|FINDSUBSTRINGEX|GetTimeZoneName|LockStorageFile|MailboxSetFlags|OpenMailboxView|ProcessCalendar|READENVIROBJECT|ReadStorageFile|SubscribeEvents|APPENDSITEFILE|DateByMonthDay|DELETESITEFILE|GetAccountInfo|GetMailboxACLs|GetMessageAttr|MailboxExpunge|ObjectToString|ReadSkinObject|RENAMESITEFILE|SetMailboxACLs|WAVLASTSILENCE|CreateMailbox|CreateMeeting|DatasetCreate|DatasetDelete|DatasetRemove|DateByYearDay|DeleteMailbox|EmailToSIPURI|EmailUserPart|FindSubstring|GetPreference|InsertElement|IsWhiteSpaces|ListMailboxes|ListSiteFiles|MailboxAppend|messageFields|MessageHeader|NewDictionary|ReadEnvirFile|RemoveElement|RemoveMeeting|RenameMailbox|SIPURIToEmail|WRITESITEFILE|Base32Decode|Base32Encode|Base64Decode|Base64Encode|ClearMeeting|GetAttribute|GetNamespace|IsDictionary|JSONToObject|ObjectToJSON|OpenCalendar|RandomNumber|ReadCallInfo|READSITEFILE|READSKINFILE|RouteAddress|SetAttribute|SetNamespace|StartPBXTask|TextToObject|DatasetList|findContact|FindMeeting|GetLanguage|Impersonate|IsIPAddress|MailboxCopy|MailboxUIDs|MessageBody|MessagePart|objectClass|ObjectToXML|OpenMailbox|OpenMessage|ReadTelnums|SetLanguage|SetTimeZone|SortStrings|SubmitEMail|ToLowerCase|ToUpperCase|WSSPCOMPOSE|AddElement|BannerRead|CallHelper|CheckQueue|CryDecrypt|CryEncrypt|DatasetSet|DateNumber|ExecuteCLI|GMTToLocal|LocalToGMT|RADIUSCall|RandomData|ReadRoster|SendXMPPIQ|Statistics|SysProfile|SystemInfo|CryDigest|DoBalance|EmptyData|FindRegEx|GetPrefix|IPAddress|LocalTime|ReadInput|ReadQueue|RouteENUM|RunScript|SCOPEVARS|SendEMail|SendEvent|SetResult|SetRoster|Substring|syncDelay|TimeOfDay|XMLPrefix|AppToXML|FuncCall|HTTPCall|IsNumber|IsString|MonthDay|MonthNum|MyDomain|NewArray|ProcCall|READFILE|StoreCDR|ThisTask|ToObject|TOTPCode|XMLToApp|Convert|CrySign|Dequeue|Enqueue|GMTTime|IsArray|IsDigit|MyEmail|WeekDay|XMLBody|XMLType|YearDay|Invert|IsData|IsDate|IsTask|Length|Minute|NewXML|Number|QRCode|Second|String|SysLog|IsXML|Month|Range|Copy|CRLF|Date|Find|Hour|Same|Sync|Vars|Void|Year|EOL|Max|Min)\\b)(?=\\s*\\()"
+        },
+        {
+          "name": "support.function.pbxapp.cgpl",
+          "match": "(?i:\\b(?:SetLocalContactParameter|IsCallTransferredEvent|IsInstantMessageEvent|ISREGISTERREPORTEVENT|SetForeignCredentials|SETTRANSFERREPORTMODE|UPDATEPROVISIONEDCALL|IsCallCompletedEvent|IsCallProvisionEvent|IsStartTransferEvent|PendingRequestExData|RemoteAuthentication|SENDCALLINFORESPONSE|ReleaseMediaChannel|SETBRIDGEDPROVISION|SetSecondaryForCall|IncomingRequestURI|IsBreakBridgeEvent|IsStartBridgeEvent|MEDIACHANNELOPTION|PendingRequestData|SetBridgeBreakMode|SETINTERCEPTPARAMS|SetInterruptOnDTMF|IsDisconnectEvent|SetCallParameters|StartTransferCall|TransferSupported|CALLDIALOGDATAEX|RemoteRedirector|SendCallRegister|SETPROVISIONCODE|StartBridgedCall|GetPlayDuration|GetPlayPosition|IsCallInfoEvent|IsHalfConnected|IsPlayCompleted|MyNamedTaskName|PROVISIONCALLEX|RemoteIPAddress|SendCallOptions|SETDTMFREADMODE|SETDTMFSENDMODE|SetPlayPosition|AcceptTransfer|MIXERTHRESHOLD|PLAYFILEINLOOP|RejectTransfer|RemoteRealName|SendCallNotify|StartMixedCall|IsXMPPIQEvent|MixerAttached|ProvisionCall|RECORDSILENCE|RouteLocalURI|StartTransfer|AcceptBridge|DISCONNECTEX|RedirectCall|RejectBridge|SendCallInfo|SENDDIALOGIM|SetLocalHold|SetReferMode|SignalOption|TransferCall|AttachMixer|BreakBridge|DetachMixer|IsConnected|MediaOption|MIXERJITTER|StartBridge|AcceptCall|CancelCall|Disconnect|MIXERDELAY|PLAYINLOOP|RejectCall|ClearDTMF|IsBridged|MuteMixer|ReadInput|RemoteURI|StartCall|ForkCall|LocalURI|PlayFile|PlayTone|READDTMF|SendDTMF|WAITDTMF|Record|DTMF|Play)\\b)(?=\\s*\\()"
+        },
+        {
+          "name": "support.function.webapp.cgpl",
+          "match": "(?i:\\b(?:GetHTTPBinaryParameter|AddHTTPResponseField|SetHTTPResponseCode|SetHTTPResponseData|SetHTTPResponseType|GetHTTPParameter|ProxiedIPAddress|SendHTTPContinue|GetHTTPResource|RemoteIPAddress|GetHTTPSubtype|LOCALIPADDRESS|GetHTTPMethod|GetHTTPField|GetHTTPQuery|GetHTTPData|GetHTTPType|ProcessWSSP|SessionData)\\b)(?=\\s*\\()"
+        }
+      ]
+    },
+    "genericCall": {
+      "patterns": [
+        {
+          "name": "entity.name.function.cgpl",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()"
+        }
+      ]
+    },
+    "codeSectionDecl": {
+      "patterns": [
+        {
+          "comment": "entry NAME",
+          "match": "\\b(?i:entry)\\b\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "0": {
+              "name": "keyword.other.cgpl"
+            },
+            "1": {
+              "name": "entity.name.function.cgpl"
+            }
+          }
+        },
+        {
+          "comment": "procedure/function NAME(params)",
+          "match": "\\b(?i:procedure|function)\\b\\s+((?:[A-Za-z_][A-Za-z0-9_]*::)?[A-Za-z_][A-Za-z0-9_]*)\\s*(\\()([^)]*)(\\))",
+          "captures": {
+            "0": {
+              "name": "keyword.other.cgpl"
+            },
+            "1": {
+              "name": "entity.name.function.cgpl"
+            },
+            "2": {
+              "name": "punctuation.definition.parameters.begin.cgpl"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#paramList"
+                }
+              ]
+            },
+            "4": {
+              "name": "punctuation.definition.parameters.end.cgpl"
+            }
+          }
+        }
+      ]
+    },
+    "paramList": {
+      "patterns": [
+        {
+          "name": "variable.parameter.cgpl",
+          "match": "[A-Za-z_][A-Za-z0-9_]*"
+        },
+        {
+          "name": "punctuation.separator.comma.cgpl",
+          "match": ","
+        }
+      ]
+    },
+    "varConstDecl": {
+      "patterns": [
+        {
+          "comment": "var/const declaration list - names before any initializer are declarations",
+          "begin": "\\b(?i:var|const)\\b",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.other.declaration.cgpl"
+            }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.terminator.statement.cgpl"
+            }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.cgpl",
+              "match": "[A-Za-z_][A-Za-z0-9_]*(?=\\s*(?:[,=]|;))"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#numbers"
+            },
+            {
+              "include": "#constants"
+            },
+            {
+              "include": "#wordOperators"
+            },
+            {
+              "include": "#qualifiedName"
+            },
+            {
+              "include": "#builtinCalls"
+            },
+            {
+              "include": "#genericCall"
+            },
+            {
+              "include": "#operators"
+            },
+            {
+              "include": "#punctuation"
+            }
+          ]
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.cgpl",
+          "match": "\\+=|-=|\\*=|/=|%=|\\|=|&=|==|!=|<=|>=|&&|\\|\\||[-+*/%=<>!&|^?:]"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.terminator.statement.cgpl",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.comma.cgpl",
+          "match": ","
+        },
+        {
+          "name": "punctuation.accessor.cgpl",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.section.parens.cgpl",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.section.braces.cgpl",
+          "match": "[{}]"
+        },
+        {
+          "name": "punctuation.section.brackets.cgpl",
+          "match": "[\\[\\]]"
+        }
+      ]
+    }
+  }
+}
