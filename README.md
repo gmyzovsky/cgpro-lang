@@ -46,15 +46,15 @@ JetBrains IDEs do not let a TextMate grammar carry its own colors: the platform 
 through a hardcoded table (`TextMateDefaultColorsProvider`), and `textmate.bundleProvider` is the only extension
 point - a plugin cannot extend that table. The relevant entries are:
 
-| grammar scope | IDE color key | Darcula default |
-| --- | --- | --- |
-| `entity.name.function` (your own functions) | Function declaration | yellow |
-| `support.function` (CG/PL built-ins) | Function call | **no color - plain text** |
+| grammar scope | used for | IDE color key | Darcula default |
+| --- | --- | --- | --- |
+| `entity.name.function` | the name in `entry X`, `procedure X(...)`, `function X(...)` | Function declaration | yellow |
+| `support.function` | every call site, whether built-in or your own | Function call | **no color - plain text** |
 
-So out of the box in Darcula the standard library renders as plain text while your own code is highlighted. Fix it
-once in `Settings -> Editor -> Color Scheme -> Language Defaults -> Identifiers -> Function call` (tick Foreground,
-pick a color). This is a color-scheme preference, not a grammar bug - `support.function` is the semantically
-correct scope and is what VSCode themes expect.
+That split mirrors what the IDE already does for C++, where a definition and a call are coloured differently.
+The consequence is that out of the box in Darcula every call renders as plain text - again exactly like C++.
+Fix it once in `Settings -> Editor -> Color Scheme -> Language Defaults -> Identifiers -> Function call` (tick
+Foreground, pick a colour), and calls light up in CG/PL and in every other language that leaves the key alone.
 
 ## How the grammars are built
 

@@ -135,7 +135,7 @@
               "name": "punctuation.accessor.cgpl"
             },
             "3": {
-              "name": "entity.name.function.cgpl"
+              "name": "support.function.cgpl"
             }
           }
         }
@@ -160,7 +160,7 @@
     "genericCall": {
       "patterns": [
         {
-          "name": "entity.name.function.cgpl",
+          "name": "support.function.cgpl",
           "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()"
         }
       ]
@@ -169,37 +169,43 @@
       "patterns": [
         {
           "comment": "entry NAME",
-          "match": "\\b(?i:entry)\\b\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
+          "match": "\\b(?i:(entry))\\s+([A-Za-z_][A-Za-z0-9_]*)\\b",
           "captures": {
-            "0": {
+            "1": {
               "name": "keyword.other.cgpl"
             },
-            "1": {
+            "2": {
               "name": "entity.name.function.cgpl"
             }
           }
         },
         {
-          "comment": "procedure/function NAME(params)",
-          "match": "\\b(?i:procedure|function)\\b\\s+((?:[A-Za-z_][A-Za-z0-9_]*::)?[A-Za-z_][A-Za-z0-9_]*)\\s*(\\()([^)]*)(\\))",
+          "comment": "procedure/function [module::]NAME(params), including forward and external",
+          "match": "\\b(?i:(procedure|function))\\s+(?:([A-Za-z_][A-Za-z0-9_]*)(::))?([A-Za-z_][A-Za-z0-9_]*)\\s*(\\()([^)]*)(\\))",
           "captures": {
-            "0": {
+            "1": {
               "name": "keyword.other.cgpl"
             },
-            "1": {
-              "name": "entity.name.function.cgpl"
-            },
             "2": {
-              "name": "punctuation.definition.parameters.begin.cgpl"
+              "name": "entity.name.namespace.cgpl"
             },
             "3": {
+              "name": "punctuation.accessor.cgpl"
+            },
+            "4": {
+              "name": "entity.name.function.cgpl"
+            },
+            "5": {
+              "name": "punctuation.definition.parameters.begin.cgpl"
+            },
+            "6": {
               "patterns": [
                 {
                   "include": "#paramList"
                 }
               ]
             },
-            "4": {
+            "7": {
               "name": "punctuation.definition.parameters.end.cgpl"
             }
           }

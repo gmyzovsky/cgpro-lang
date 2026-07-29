@@ -114,6 +114,13 @@ const cgpl = {
         },
       ],
     },
+    // A name used in a call is not a declaration. Declarations are scoped
+    // entity.name.function by codeSectionDecl, which is matched first;
+    // every other called name gets a call scope. The difference is not
+    // cosmetic in JetBrains IDEs, which map the two to separate colour keys
+    // ("Function declaration" and "Function call") exactly as they do for
+    // C++ - scoping a call as a declaration paints every call site as if it
+    // defined something.
     qualifiedName: {
       patterns: [
         {
@@ -121,7 +128,7 @@ const cgpl = {
           captures: {
             1: { name: 'entity.name.namespace.cgpl' },
             2: { name: 'punctuation.accessor.cgpl' },
-            3: { name: 'entity.name.function.cgpl' },
+            3: { name: 'support.function.cgpl' },
           },
         },
       ],
@@ -138,25 +145,30 @@ const cgpl = {
       ],
     },
     genericCall: {
-      patterns: [{ name: 'entity.name.function.cgpl', match: '\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()' }],
+      patterns: [{ name: 'support.function.cgpl', match: '\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()' }],
     },
     codeSectionDecl: {
       patterns: [
         {
           comment: 'entry NAME',
-          match: '\\b(?i:entry)\\b\\s+([A-Za-z_][A-Za-z0-9_]*)\\b',
-          captures: { 0: { name: 'keyword.other.cgpl' }, 1: { name: 'entity.name.function.cgpl' } },
+          match: '\\b(?i:(entry))\\s+([A-Za-z_][A-Za-z0-9_]*)\\b',
+          captures: {
+            1: { name: 'keyword.other.cgpl' },
+            2: { name: 'entity.name.function.cgpl' },
+          },
         },
         {
-          comment: 'procedure/function NAME(params)',
+          comment: 'procedure/function [module::]NAME(params), including forward and external',
           match:
-            '\\b(?i:procedure|function)\\b\\s+((?:[A-Za-z_][A-Za-z0-9_]*::)?[A-Za-z_][A-Za-z0-9_]*)\\s*(\\()([^)]*)(\\))',
+            '\\b(?i:(procedure|function))\\s+(?:([A-Za-z_][A-Za-z0-9_]*)(::))?([A-Za-z_][A-Za-z0-9_]*)\\s*(\\()([^)]*)(\\))',
           captures: {
-            0: { name: 'keyword.other.cgpl' },
-            1: { name: 'entity.name.function.cgpl' },
-            2: { name: 'punctuation.definition.parameters.begin.cgpl' },
-            3: { patterns: [{ include: '#paramList' }] },
-            4: { name: 'punctuation.definition.parameters.end.cgpl' },
+            1: { name: 'keyword.other.cgpl' },
+            2: { name: 'entity.name.namespace.cgpl' },
+            3: { name: 'punctuation.accessor.cgpl' },
+            4: { name: 'entity.name.function.cgpl' },
+            5: { name: 'punctuation.definition.parameters.begin.cgpl' },
+            6: { patterns: [{ include: '#paramList' }] },
+            7: { name: 'punctuation.definition.parameters.end.cgpl' },
           },
         },
       ],

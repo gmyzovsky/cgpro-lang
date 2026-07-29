@@ -79,6 +79,7 @@ for (const file of files) {
 
 const INTERESTING = [
   'entity.name.function.cgpl',
+  'support.function.cgpl',
   'support.function.builtin.cgpl',
   'support.function.pbxapp.cgpl',
   'support.function.webapp.cgpl',
