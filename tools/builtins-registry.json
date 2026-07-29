@@ -7,7 +7,7 @@
       "maxArgs": 3
     },
     {
-      "name": "addElement",
+      "name": "AddElement",
       "isFunction": false,
       "minArgs": 2,
       "maxArgs": 2
@@ -43,13 +43,13 @@
       "maxArgs": 2
     },
     {
-      "name": "BASE32DECODE",
+      "name": "Base32Decode",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "BASE32ENCODE",
+      "name": "Base32Encode",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -67,13 +67,13 @@
       "maxArgs": 1
     },
     {
-      "name": "BASE64URLDECODE",
+      "name": "Base64UrlDecode",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "BASE64URLENCODE",
+      "name": "Base64UrlEncode",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -103,13 +103,13 @@
       "maxArgs": 2
     },
     {
-      "name": "copy",
+      "name": "Copy",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "CREATEMAILBOX",
+      "name": "CreateMailbox",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -139,7 +139,7 @@
       "maxArgs": 0
     },
     {
-      "name": "CRYDECRYPT",
+      "name": "CryDecrypt",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -151,31 +151,31 @@
       "maxArgs": 3
     },
     {
-      "name": "CRYENCRYPT",
+      "name": "CryEncrypt",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "CRYSIGN",
+      "name": "CrySign",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "DATASETCREATE",
+      "name": "DatasetCreate",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "DATASETDELETE",
+      "name": "DatasetDelete",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "DATASETLIST",
+      "name": "DatasetList",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -187,7 +187,7 @@
       "maxArgs": 1
     },
     {
-      "name": "DATASETREMOVE",
+      "name": "DatasetRemove",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -229,7 +229,7 @@
       "maxArgs": 3
     },
     {
-      "name": "DELETEMAILBOX",
+      "name": "DeleteMailbox",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -265,7 +265,7 @@
       "maxArgs": 1
     },
     {
-      "name": "DIRECTORYMODIFY",
+      "name": "DirectoryModify",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -325,7 +325,7 @@
       "maxArgs": 1
     },
     {
-      "name": "find",
+      "name": "Find",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -349,7 +349,7 @@
       "maxArgs": 2
     },
     {
-      "name": "findSubString",
+      "name": "FindSubstring",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 3
@@ -391,7 +391,7 @@
       "maxArgs": 1
     },
     {
-      "name": "getAttribute",
+      "name": "GetAttribute",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 3
@@ -409,7 +409,7 @@
       "maxArgs": 1
     },
     {
-      "name": "GETMAILBOXALIASES",
+      "name": "GetMailboxAliases",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -421,13 +421,13 @@
       "maxArgs": 1
     },
     {
-      "name": "GETMESSAGEATTR",
+      "name": "GetMessageAttr",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "getNamespace",
+      "name": "GetNamespace",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 2
@@ -439,13 +439,13 @@
       "maxArgs": 2
     },
     {
-      "name": "GETPREFIX",
+      "name": "GetPrefix",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "GETTIMEZONENAME",
+      "name": "GetTimeZoneName",
       "isFunction": true,
       "minArgs": 0,
       "maxArgs": 0
@@ -463,7 +463,7 @@
       "maxArgs": 1
     },
     {
-      "name": "HOUR",
+      "name": "Hour",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -481,19 +481,19 @@
       "maxArgs": 2
     },
     {
-      "name": "insertElement",
+      "name": "InsertElement",
       "isFunction": false,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "INVERT",
+      "name": "Invert",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "IPADDRESS",
+      "name": "IPAddress",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -529,13 +529,13 @@
       "maxArgs": 1
     },
     {
-      "name": "ISIPADDRESS",
+      "name": "IsIPAddress",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "ISMAILBOXNOTIFYEVENT",
+      "name": "IsMailboxNotifyEvent",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -577,7 +577,7 @@
       "maxArgs": 1
     },
     {
-      "name": "length",
+      "name": "Length",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -613,7 +613,7 @@
       "maxArgs": 1
     },
     {
-      "name": "LOCKSTORAGEFILE",
+      "name": "LockStorageFile",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -625,7 +625,7 @@
       "maxArgs": 3
     },
     {
-      "name": "MAILBOXAUDIOBYUID",
+      "name": "MailboxAudioByUID",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -655,25 +655,25 @@
       "maxArgs": 2
     },
     {
-      "name": "MAILBOXFORWARDBYUID",
+      "name": "MailboxForwardByUID",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "mailboxInternalTimeByUID",
+      "name": "MailboxInternalTimeByUID",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "MAILBOXORIGUIDBYUID",
+      "name": "MailboxOrigUIDByUID",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "mailboxRedirectByUID",
+      "name": "MailboxRedirectByUID",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -691,7 +691,7 @@
       "maxArgs": 3
     },
     {
-      "name": "MAILBOXUIDBYORIGUID",
+      "name": "MailboxUIDByOrigUID",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -739,7 +739,7 @@
       "maxArgs": 2
     },
     {
-      "name": "MINUTE",
+      "name": "Minute",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -799,7 +799,7 @@
       "maxArgs": 1
     },
     {
-      "name": "OBJECTCLASS",
+      "name": "objectClass",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -811,7 +811,7 @@
       "maxArgs": 1
     },
     {
-      "name": "objectToString",
+      "name": "ObjectToString",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -853,7 +853,7 @@
       "maxArgs": 1
     },
     {
-      "name": "PROCESSCALENDAR",
+      "name": "ProcessCalendar",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -865,7 +865,7 @@
       "maxArgs": 1
     },
     {
-      "name": "RADIUSCALL",
+      "name": "RADIUSCall",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -967,7 +967,7 @@
       "maxArgs": 1
     },
     {
-      "name": "removeElement",
+      "name": "RemoveElement",
       "isFunction": false,
       "minArgs": 2,
       "maxArgs": 2
@@ -979,7 +979,7 @@
       "maxArgs": 2
     },
     {
-      "name": "RENAMEMAILBOX",
+      "name": "RenameMailbox",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -1015,19 +1015,19 @@
       "maxArgs": 2
     },
     {
-      "name": "ROUTEENUM",
+      "name": "RouteENUM",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "RUNSCRIPT",
+      "name": "RunScript",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 3
     },
     {
-      "name": "SAME",
+      "name": "Same",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
@@ -1039,7 +1039,7 @@
       "maxArgs": 0
     },
     {
-      "name": "SECOND",
+      "name": "Second",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -1087,13 +1087,13 @@
       "maxArgs": 1
     },
     {
-      "name": "setAttribute",
+      "name": "SetAttribute",
       "isFunction": false,
       "minArgs": 3,
       "maxArgs": 4
     },
     {
-      "name": "SETCASESENSITIVE",
+      "name": "SetCaseSensitive",
       "isFunction": false,
       "minArgs": 2,
       "maxArgs": 2
@@ -1111,25 +1111,25 @@
       "maxArgs": 2
     },
     {
-      "name": "SETMAILBOXALIASES",
+      "name": "SetMailboxAliases",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "SETMAILBOXSUBSCRIPTION",
+      "name": "SetMailboxSubscription",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "setNamespace",
+      "name": "SetNamespace",
       "isFunction": false,
       "minArgs": 2,
       "maxArgs": 3
     },
     {
-      "name": "SETROSTER",
+      "name": "SetRoster",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 2
@@ -1141,7 +1141,7 @@
       "maxArgs": 1
     },
     {
-      "name": "SIPURItoEmail",
+      "name": "SIPURIToEmail",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -1159,13 +1159,13 @@
       "maxArgs": 3
     },
     {
-      "name": "statistics",
+      "name": "Statistics",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "STORECDR",
+      "name": "StoreCDR",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1177,31 +1177,31 @@
       "maxArgs": 1
     },
     {
-      "name": "SubmitEmail",
+      "name": "SubmitEMail",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "SUBSCRIBEEVENTS",
+      "name": "SubscribeEvents",
       "isFunction": false,
       "minArgs": 2,
       "maxArgs": 2
     },
     {
-      "name": "subString",
+      "name": "Substring",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
     },
     {
-      "name": "SYNC",
+      "name": "Sync",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "SyncDelay",
+      "name": "syncDelay",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1213,7 +1213,7 @@
       "maxArgs": 1
     },
     {
-      "name": "SYSPROFILE",
+      "name": "SysProfile",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1255,19 +1255,19 @@
       "maxArgs": 1
     },
     {
-      "name": "TOTPCODE",
+      "name": "TOTPCode",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "TOUPPERCASE",
+      "name": "ToUpperCase",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "UPDATEACCOUNTMAILRULE",
+      "name": "UpdateAccountMailRule",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 2
@@ -1279,7 +1279,7 @@
       "maxArgs": 2
     },
     {
-      "name": "UPDATEMESSAGEATTR",
+      "name": "UpdateMessageAttr",
       "isFunction": true,
       "minArgs": 3,
       "maxArgs": 3
@@ -1297,7 +1297,7 @@
       "maxArgs": 0
     },
     {
-      "name": "void",
+      "name": "Void",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1339,25 +1339,25 @@
       "maxArgs": 3
     },
     {
-      "name": "xmlBody",
+      "name": "XMLBody",
       "isFunction": true,
       "minArgs": 2,
       "maxArgs": 4
     },
     {
-      "name": "xmlPrefix",
+      "name": "XMLPrefix",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "XMLTOAPP",
+      "name": "XMLToApp",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "xmlType",
+      "name": "XMLType",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -1443,7 +1443,7 @@
       "maxArgs": 2
     },
     {
-      "name": "dtmf",
+      "name": "DTMF",
       "isFunction": true,
       "minArgs": 0,
       "maxArgs": 0
@@ -1623,7 +1623,7 @@
       "maxArgs": 1
     },
     {
-      "name": "PENDINGREQUESTEXDATA",
+      "name": "PendingRequestExData",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -1707,7 +1707,7 @@
       "maxArgs": 2
     },
     {
-      "name": "rejectCall",
+      "name": "RejectCall",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1773,13 +1773,13 @@
       "maxArgs": 1
     },
     {
-      "name": "SENDCALLNOTIFY",
+      "name": "SendCallNotify",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
     },
     {
-      "name": "SENDCALLOPTIONS",
+      "name": "SendCallOptions",
       "isFunction": true,
       "minArgs": 1,
       "maxArgs": 1
@@ -1857,7 +1857,7 @@
       "maxArgs": 2
     },
     {
-      "name": "SETLOCALHOLD",
+      "name": "SetLocalHold",
       "isFunction": false,
       "minArgs": 1,
       "maxArgs": 1
@@ -1941,7 +1941,7 @@
       "maxArgs": 1
     },
     {
-      "name": "TRANSFERSUPPORTED",
+      "name": "TransferSupported",
       "isFunction": true,
       "minArgs": 0,
       "maxArgs": 0
@@ -2033,7 +2033,7 @@
       "maxArgs": 2
     },
     {
-      "name": "PROXIEDIPADDRESS",
+      "name": "ProxiedIPAddress",
       "isFunction": true,
       "minArgs": 0,
       "maxArgs": 0
@@ -2045,7 +2045,7 @@
       "maxArgs": 0
     },
     {
-      "name": "SENDHTTPCONTINUE",
+      "name": "SendHTTPContinue",
       "isFunction": true,
       "minArgs": 0,
       "maxArgs": 0

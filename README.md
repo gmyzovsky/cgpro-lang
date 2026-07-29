@@ -84,6 +84,10 @@ described on any page. The extractor merges it with the documentation: the roste
 the pages supply the descriptions. Entries the documentation does not cover are labelled as undocumented in
 their hover rather than posing as documented, and no documentation link is offered for them.
 
+Names in the roster follow the documentation's spelling wherever a page describes the function; CG/PL is
+case-insensitive, so this is cosmetic, but mixed spellings for neighbouring functions read like a defect. The
+few that stay upper-cased are the ones no page describes, where there is no spelling to follow.
+
 The grammar *shape* itself (keywords, both CG/PL syntax dialects, operator precedence, string/number/comment
 lexemes, the WSSP `%%...%%`/`<!--%%...-->` injection structure) is hand-authored in `tools/build-grammars.mjs`
 from the Formal Syntax section of the CG/PL page and the Formal Syntax Rules of the Data page - only the
