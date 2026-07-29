@@ -37,15 +37,19 @@
     {
       "name": "APPENDSITEFILE",
       "signatures": [
-        "APPENDSITEFILE(...)"
+        "APPENDSITEFILE(fileName,data)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "fileName",
+        "data"
+      ],
+      "doc": "This function appends the data datablock or string to the end of the fileName File Storage file. If fileName is not a string or data is not a datablock nor it is a string, this function call results in a program exception. This function returns a null-value if the file is successfully written, otherwise it returns a string with an error code.",
+      "anchor": "AppendStorageFile",
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "AppendStorageFile",
+      "source": "alias"
     },
     {
       "name": "AppendStorageFile",
@@ -74,6 +78,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -315,15 +320,18 @@
     {
       "name": "CREATESITEDIRECTORY",
       "signatures": [
-        "CREATESITEDIRECTORY(...)"
+        "CREATESITEDIRECTORY(directoryName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "directoryName"
+      ],
+      "doc": "This function creates the directoryName File Storage directory. This function returns a null-value if the directory is successfully created, otherwise it returns a string with an error code.",
+      "anchor": "CreateStorageDirectory",
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "CreateStorageDirectory",
+      "source": "alias"
     },
     {
       "name": "CreateStorageDirectory",
@@ -482,6 +490,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -618,28 +627,34 @@
     {
       "name": "DELETESITEDIRECTORY",
       "signatures": [
-        "DELETESITEDIRECTORY(...)"
+        "DELETESITEDIRECTORY(directoryName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "directoryName"
+      ],
+      "doc": "This function deletes the directoryName File Storage directory. The directory should be empty. This function returns a null-value if the directory is successfully deleted, otherwise it returns a string with an error code.",
+      "anchor": "DeleteStorageDirectory",
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "DeleteStorageDirectory",
+      "source": "alias"
     },
     {
       "name": "DELETESITEFILE",
       "signatures": [
-        "DELETESITEFILE(...)"
+        "DELETESITEFILE(fileName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "fileName"
+      ],
+      "doc": "This function deletes the fileName File Storage file. This function returns a null-value if the file is successfully deleted, otherwise it returns a string with an error code.",
+      "anchor": "DeleteStorageFile",
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "DeleteStorageFile",
+      "source": "alias"
     },
     {
       "name": "DeleteStorageDirectory",
@@ -869,6 +884,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -932,6 +948,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -962,6 +979,7 @@
       "minArgs": 4,
       "maxArgs": 4,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -975,6 +993,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1003,6 +1022,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1016,6 +1036,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1138,6 +1159,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1518,15 +1540,18 @@
     {
       "name": "ListSiteFiles",
       "signatures": [
-        "ListSiteFiles(...)"
+        "ListSiteFiles(folderName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "folderName"
+      ],
+      "doc": "This function returns information about all files in the specified File Storage subdirectory. If folderName is not a string, information about the top-level directory in the current Account File Storage is returned. This function returns a null-value if an error occurred. Otherwise, the function returns a dictionary.",
+      "anchor": "ListStorageFiles",
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "ListStorageFiles",
+      "source": "alias"
     },
     {
       "name": "ListStorageFiles",
@@ -1648,6 +1673,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1775,6 +1801,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -1852,6 +1879,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2305,6 +2333,7 @@
       "minArgs": 0,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2333,6 +2362,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2346,6 +2376,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2409,15 +2440,18 @@
     {
       "name": "READSITEFILE",
       "signatures": [
-        "READSITEFILE(...)"
+        "READSITEFILE(fileDescr)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "fileDescr"
+      ],
+      "doc": "This function reads a File Storage file. If the fileDescr value is a string, it specifies the name of the File Storage file to read. The entire file is read - and only files not larger than 1MB in size can be read this way. If the fileDescr value is a dictionary, the following dictionary elements are used: fileName a string - the name of the file to read position an optional element.",
+      "anchor": "ReadStorageFile",
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "ReadStorageFile",
+      "source": "alias"
     },
     {
       "name": "READSKINFILE",
@@ -2430,6 +2464,7 @@
       "minArgs": 1,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2550,28 +2585,36 @@
     {
       "name": "RENAMESITEDIRECTORY",
       "signatures": [
-        "RENAMESITEDIRECTORY(...)"
+        "RENAMESITEDIRECTORY(oldDirectoryName,newDirectoryName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "oldDirectoryName",
+        "newDirectoryName"
+      ],
+      "doc": "This function renames the oldDirectoryName File Storage directory into newDirectoryName. Both parameters must have string values. This function returns a null-value if the directory is successfully renamed, otherwise it returns a string with an error code.",
+      "anchor": "RenameStorageDirectory",
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "RenameStorageDirectory",
+      "source": "alias"
     },
     {
       "name": "RENAMESITEFILE",
       "signatures": [
-        "RENAMESITEFILE(...)"
+        "RENAMESITEFILE(oldFileName,newFileName)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "oldFileName",
+        "newFileName"
+      ],
+      "doc": "This function renames the oldFileName File Storage file into newFileName. Both parameters must have string values. This function returns a null-value if the file is successfully renamed, otherwise it returns a string with an error code.",
+      "anchor": "RenameStorageFile",
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "RenameStorageFile",
+      "source": "alias"
     },
     {
       "name": "RenameStorageDirectory",
@@ -2684,6 +2727,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -2766,6 +2810,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3020,6 +3065,7 @@
       "minArgs": 3,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3204,6 +3250,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3356,6 +3403,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3397,6 +3445,7 @@
       "minArgs": 1,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3417,15 +3466,19 @@
     {
       "name": "WRITESITEFILE",
       "signatures": [
-        "WRITESITEFILE(...)"
+        "WRITESITEFILE(fileDescr,data)"
       ],
-      "params": [],
-      "doc": "",
-      "anchor": null,
+      "params": [
+        "fileDescr",
+        "data"
+      ],
+      "doc": "This function stores the data value (which should be either a datablock or a string) into the specified File Storage file. If the fileDescr value is a string, it specifies the name of the file to write to. The entire file is rewritten. If the fileDescr value is a dictionary, the following dictionary elements are used: fileName a string - the name of the file to write position an optional element.",
+      "anchor": "WriteStorageFile",
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
-      "source": "registry"
+      "aliasOf": "WriteStorageFile",
+      "source": "alias"
     },
     {
       "name": "WriteStorageFile",
@@ -3470,6 +3523,7 @@
       "minArgs": 2,
       "maxArgs": 3,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3651,6 +3705,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3722,6 +3777,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3763,6 +3819,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3817,6 +3874,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -3959,6 +4017,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4030,6 +4089,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4073,6 +4133,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4086,6 +4147,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4099,6 +4161,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4128,6 +4191,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4205,6 +4269,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4218,6 +4283,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4268,6 +4334,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4281,6 +4348,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4324,6 +4392,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4438,6 +4507,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4451,6 +4521,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4507,6 +4578,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4565,6 +4637,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4593,6 +4666,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4606,6 +4680,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4634,6 +4709,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4647,6 +4723,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4660,6 +4737,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4673,6 +4751,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4747,6 +4826,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4760,6 +4840,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4773,6 +4854,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": false,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4786,6 +4868,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4862,6 +4945,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4890,6 +4974,7 @@
       "minArgs": 2,
       "maxArgs": 2,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4931,6 +5016,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {
@@ -4944,6 +5030,7 @@
       "minArgs": 1,
       "maxArgs": 1,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     }
   ],
@@ -5100,6 +5187,7 @@
       "minArgs": 0,
       "maxArgs": 0,
       "isFunction": true,
+      "aliasOf": null,
       "source": "registry"
     },
     {

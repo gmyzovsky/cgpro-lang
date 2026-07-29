@@ -84,6 +84,11 @@ described on any page. The extractor merges it with the documentation: the roste
 the pages supply the descriptions. Entries the documentation does not cover are labelled as undocumented in
 their hover rather than posing as documented, and no documentation link is offered for them.
 
+Some built-ins are two names for the same thing - the `ReadSiteFile` / `ReadStorageFile` family and its
+neighbours - where only one name of the pair is documented. The roster records the pairing in an `aliasOf`
+field, and the alias then borrows its twin's parameters, description and documentation link instead of
+showing nothing. The two names always agree on argument count, which is what makes the pairing checkable.
+
 Names in the roster follow the documentation's spelling wherever a page describes the function; CG/PL is
 case-insensitive, so this is cosmetic, but mixed spellings for neighbouring functions read like a defect. The
 few that stay upper-cased are the ones no page describes, where there is no spelling to follow.

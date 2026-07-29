@@ -23,7 +23,9 @@ export interface Builtin {
   /** True for functions (return a value), false for procedures. */
   isFunction?: boolean;
   /** Where the entry came from: the documentation, the registry, or both. */
-  source?: 'docs' | 'registry' | 'both';
+  source?: 'docs' | 'registry' | 'both' | 'alias';
+  /** Set when this name is a synonym of another built-in. */
+  aliasOf?: string | null;
 }
 
 export type BuiltinCategory = 'cgpl' | 'pbxapp' | 'webapp';
@@ -50,7 +52,8 @@ interface RawEntry {
   minArgs?: number;
   maxArgs?: number;
   isFunction?: boolean;
-  source?: 'docs' | 'registry' | 'both';
+  source?: 'docs' | 'registry' | 'both' | 'alias';
+  aliasOf?: string | null;
 }
 
 let byLowerName: Map<string, Builtin> | undefined;
@@ -84,6 +87,7 @@ function load(): Map<string, Builtin> {
         maxArgs: entry.maxArgs,
         isFunction: entry.isFunction,
         source: entry.source,
+        aliasOf: entry.aliasOf ?? null,
       });
     }
   }
@@ -119,6 +123,7 @@ export function builtinHover(b: Builtin): string {
         : `${b.minArgs}–${b.maxArgs} arguments`;
     lines.push('', `Takes ${arity}.`);
   }
+  if (b.aliasOf) lines.push('', `Synonym of \`${b.aliasOf}\`.`);
   if (b.doc) lines.push('', b.doc);
   if (b.source === 'registry') {
     // Be explicit rather than silently presenting a bare name as if it were

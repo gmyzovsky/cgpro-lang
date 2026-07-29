@@ -369,6 +369,7 @@ if (existsSync(registryFile)) {
           minArgs: e.minArgs,
           maxArgs: e.maxArgs,
           isFunction: e.isFunction,
+          aliasOf: e.aliasOf ?? null,
           source: 'registry',
         });
         merged.fromRegistryOnly++;
@@ -384,9 +385,37 @@ if (existsSync(registryFile)) {
       }
     }
   }
+  // Some built-ins are two names for one implementation - the whole
+  // ReadSiteFile / ReadStorageFile family, for instance. Only one name of
+  // each pair is documented, but an alias behaves identically, so it can
+  // borrow its twin's description instead of showing nothing. The pairing is
+  // recorded by hand in the registry's `aliasOf` field; the arity of both
+  // names matches, which is what makes the claim checkable.
+  let aliases = 0;
+  const documented = new Map();
+  for (const bucket of Object.values(categories)) {
+    for (const e of bucket) if (e.source !== 'registry') documented.set(e.name.toLowerCase(), e);
+  }
+  for (const bucket of Object.values(categories)) {
+    for (const e of bucket) {
+      if (!e.aliasOf) continue;
+      const target = documented.get(e.aliasOf.toLowerCase());
+      if (!target) continue;
+      // Present the alias under its own name, with the documented twin's
+      // parameters and prose.
+      e.signatures = target.signatures.map((s) => s.replace(/^[A-Za-z_][A-Za-z0-9_]*/, e.name));
+      e.params = target.params;
+      e.doc = target.doc;
+      e.anchor = target.anchor;
+      e.source = 'alias';
+      aliases++;
+    }
+  }
+
   console.log(
     `merged with the registry: ${merged.both} documented and registered, ` +
-      `${merged.fromRegistryOnly} registered but undocumented, ` +
+      `${merged.fromRegistryOnly} registered but undocumented ` +
+      `(${aliases} of them synonyms of a documented function), ` +
       `${merged.fromDocsOnly} documented only`,
   );
 } else {

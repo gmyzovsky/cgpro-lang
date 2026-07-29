@@ -16,7 +16,8 @@
       "name": "APPENDSITEFILE",
       "isFunction": true,
       "minArgs": 2,
-      "maxArgs": 2
+      "maxArgs": 2,
+      "aliasOf": "AppendStorageFile"
     },
     {
       "name": "AppendStorageFile",
@@ -124,7 +125,8 @@
       "name": "CREATESITEDIRECTORY",
       "isFunction": true,
       "minArgs": 1,
-      "maxArgs": 1
+      "maxArgs": 1,
+      "aliasOf": "CreateStorageDirectory"
     },
     {
       "name": "CreateStorageDirectory",
@@ -238,13 +240,15 @@
       "name": "DELETESITEDIRECTORY",
       "isFunction": true,
       "minArgs": 1,
-      "maxArgs": 1
+      "maxArgs": 1,
+      "aliasOf": "DeleteStorageDirectory"
     },
     {
       "name": "DELETESITEFILE",
       "isFunction": true,
       "minArgs": 1,
-      "maxArgs": 1
+      "maxArgs": 1,
+      "aliasOf": "DeleteStorageFile"
     },
     {
       "name": "DeleteStorageDirectory",
@@ -592,7 +596,8 @@
       "name": "ListSiteFiles",
       "isFunction": true,
       "minArgs": 1,
-      "maxArgs": 1
+      "maxArgs": 1,
+      "aliasOf": "ListStorageFiles"
     },
     {
       "name": "ListStorageFiles",
@@ -934,7 +939,8 @@
       "name": "READSITEFILE",
       "isFunction": true,
       "minArgs": 1,
-      "maxArgs": 1
+      "maxArgs": 1,
+      "aliasOf": "ReadStorageFile"
     },
     {
       "name": "READSKINFILE",
@@ -988,13 +994,15 @@
       "name": "RENAMESITEDIRECTORY",
       "isFunction": true,
       "minArgs": 2,
-      "maxArgs": 2
+      "maxArgs": 2,
+      "aliasOf": "RenameStorageDirectory"
     },
     {
       "name": "RENAMESITEFILE",
       "isFunction": true,
       "minArgs": 2,
-      "maxArgs": 2
+      "maxArgs": 2,
+      "aliasOf": "RenameStorageFile"
     },
     {
       "name": "RenameStorageDirectory",
@@ -1318,7 +1326,8 @@
       "name": "WRITESITEFILE",
       "isFunction": true,
       "minArgs": 2,
-      "maxArgs": 2
+      "maxArgs": 2,
+      "aliasOf": "WriteStorageFile"
     },
     {
       "name": "WriteStorageFile",
