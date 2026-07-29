@@ -12,3 +12,6 @@ jetbrains-plugin/.intellijPlatform/
 # compiled LSP server / client
 server/out/
 client/out/
+
+# documentation fetched by tools/fetch-docs.mjs
+docs/

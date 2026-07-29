@@ -83,7 +83,7 @@
         "data",
         "format"
       ],
-      "doc": "This function converts application data into its XML representation. The data value should be a string or a datablock containing the application data text. The format value should be a string specifying the application data format. The following formats are supported: - vCard - vCard format, the function returns either a vCard XML object, or an array of vCard XML objects.",
+      "doc": "This function converts application data into its XML representation. The data value should be a string or a datablock containing the application data text. The format value should be a string specifying the application data format. The following formats are supported: vCard - vCard format, the function returns either a vCard XML object, or an array of vCard XML objects.",
       "anchor": "AppToXML",
       "minArgs": 2,
       "maxArgs": 2,
@@ -220,7 +220,7 @@
       "params": [
         "queueName"
       ],
-      "doc": "This function checks the current Task position in an Account Queue. The queueName parameter specifies the Queue name. The function returns a null-value if it has failed to access the specified Queue. Otherwise, it returns the same dictionary as the Enqueue function. The position element exists in the returned dictionary only if the current Task is currently enqueued into the specified Queue.",
+      "doc": "This function checks the current Task position in an Account Queue. The queueName parameter specifies the Queue name. The function returns a null-value if it has failed to access the specified Queue. Otherwise, it returns the same dictionary as the Enqueue function. Note The position element exists in the returned dictionary only if the current Task is currently enqueued into the specified Queue.",
       "anchor": "CheckQueue",
       "minArgs": 1,
       "maxArgs": 1,
@@ -252,7 +252,7 @@
         "data",
         "format"
       ],
-      "doc": "This function converts the data value into the format specified with the format value, which should be a string. The following format values are supported (case-insensitive, unless explicitly specified): - \"base32\" If the data value is a string, the function returns a datablock with its base32-decoded data.",
+      "doc": "This function converts the data value into the format specified with the format value, which should be a string. The following format values are supported (case-insensitive, unless explicitly specified): \"base32\" If the data value is a string, the function returns a datablock with its base32-decoded data.",
       "anchor": "Convert",
       "minArgs": 2,
       "maxArgs": 2,
@@ -933,20 +933,15 @@
     {
       "name": "GenerateJWTToken",
       "signatures": [
-        "GenerateJWTToken(headerDict, payloadDict, privateKeyPem, algorithm)"
+        "GenerateJWTToken(...)"
       ],
-      "params": [
-        "headerDict",
-        "payloadDict",
-        "privateKeyPem",
-        "algorithm"
-      ],
-      "doc": "Function for building a **JSON Web Signature (JWS)** — a signed compact JWT. 5 with SHA-256, and ECDSA P-256 with SHA-256).",
-      "anchor": "GENERATEJWTTOKEN",
+      "params": [],
+      "doc": "",
+      "anchor": null,
       "minArgs": 4,
       "maxArgs": 4,
       "isFunction": true,
-      "source": "both"
+      "source": "supplement"
     },
     {
       "name": "GetAccountInfo",
@@ -1413,7 +1408,7 @@
       "params": [
         "arg"
       ],
-      "doc": "This function returns a true-value if the arg value is a Task Handle, otherwise the function returns a null-value. The Actor Model is used: Tasks exchange data by sending each other Events.",
+      "doc": "This function returns a true-value if the arg value is a Task Handle, otherwise the function returns a null-value.",
       "anchor": "IsTask",
       "minArgs": 1,
       "maxArgs": 1,
@@ -1577,7 +1572,7 @@
         "headers",
         "content"
       ],
-      "doc": "These function composes an E-mail message and appends it to the Mailbox. The boxRef value should be a Mailbox handle. The headers and content values are processed in the same way they are processed with the SubmitEMail function.",
+      "doc": "These function composes an E-mail message and appends it to the Mailbox. The boxRef value should be a Mailbox handle. The headers and content values are processed in the same way they are processed with the SubmitEMail function. The headers dictionary may contain the following additional elements: flags a string that specifies the message flags the newly created message will have in the Mailbox.",
       "anchor": "MailboxAppend",
       "minArgs": 3,
       "maxArgs": 3,
@@ -1860,7 +1855,7 @@
         "msgRef",
         "type"
       ],
-      "doc": "The msgRef value should be a Message Handle. If the type value is a null-value, this function returns a dictionary containing the message MIME structure. Otherwise, the type value should be a string. It specifies the message subpart to search for: - audio a subpart with audio/* Content-Type. - plain a subpart with text/plain Content-Type. - text a subpart with text/* Content-Type.",
+      "doc": "The msgRef value should be a Message Handle. If the type value is a null-value, this function returns a dictionary containing the message MIME structure. Otherwise, the type value should be a string. It specifies the message subpart to search for: audio a subpart with audio/* Content-Type. plain a subpart with text/plain Content-Type. text a subpart with text/* Content-Type.",
       "anchor": "MessagePart",
       "minArgs": 2,
       "maxArgs": 2,
@@ -2213,7 +2208,7 @@
         "address",
         "parameters"
       ],
-      "doc": "This function composes and sends a RADIUS request. The address value should be an ip-address. It specifies the address and the port of the RADIUS server to send the request to. The parameters value should be a dictionary with the following elements: - Type this element should be a string.",
+      "doc": "This function composes and sends a RADIUS request. The address value should be an ip-address. It specifies the address and the port of the RADIUS server to send the request to. The parameters value should be a dictionary with the following elements: Type this element should be a string.",
       "anchor": "RADIUSCall",
       "minArgs": 2,
       "maxArgs": 2,
@@ -2354,7 +2349,7 @@
       "params": [
         "queueName"
       ],
-      "doc": "This function retrieves the first Task from the Account Queue. The queueName parameter specifies the Queue name. The function returns a null-value if there is no Tasks in the specified Queue. Otherwise, the function returns a dictionary containing the following elements: - id the Task handle for the retrieved Task.",
+      "doc": "This function retrieves the first Task from the Account Queue. The queueName parameter specifies the Queue name. The function returns a null-value if there is no Tasks in the specified Queue. Otherwise, the function returns a dictionary containing the following elements: id the Task handle for the retrieved Task.",
       "anchor": "ReadQueue",
       "minArgs": 1,
       "maxArgs": 1,
@@ -2423,7 +2418,7 @@
       "params": [
         "fileDescr"
       ],
-      "doc": "This function reads a File Storage file. If the fileDescr value is a string, it specifies the name of the File Storage file to read. The entire file is read - and only files not larger than 1MB in size can be read this way. If the fileDescr value is a dictionary, the following dictionary elements are used: - fileName a string - the name of the file to read - position an optional element.",
+      "doc": "This function reads a File Storage file. If the fileDescr value is a string, it specifies the name of the File Storage file to read. The entire file is read - and only files not larger than 1MB in size can be read this way. If the fileDescr value is a dictionary, the following dictionary elements are used: fileName a string - the name of the file to read position an optional element.",
       "anchor": "ReadStorageFile",
       "minArgs": 1,
       "maxArgs": 1,
@@ -2575,7 +2570,7 @@
         "email",
         "type"
       ],
-      "doc": "This function uses the Router to process the email address. The type value specifies the address type: it should be the mail, signal, or access string. If address routing fails, the function returns an error code string. Otherwise, the function result is a dictionary with the following elements: - module the name of the CommuniGate Pro module that will process this address.",
+      "doc": "This function uses the Router to process the email address. The type value specifies the address type: it should be the mail, signal, or access string. If address routing fails, the function returns an error code string. Otherwise, the function result is a dictionary with the following elements: module the name of the CommuniGate Pro module that will process this address.",
       "anchor": "RouteAddress",
       "minArgs": 2,
       "maxArgs": 2,
@@ -2733,7 +2728,7 @@
         "toAddress",
         "content"
       ],
-      "doc": "This function sends an XMPP-style IQ request or a presence request. The fromAddress and toAddress values have the same meaning as for the SendInstantMessage function. The content value should be a dictionary with the following elements: - type this element should be a string - \"get\", \"set\", \"result\", etc. To send a presence request, this element should be \"cgp_presence\".",
+      "doc": "This function sends an XMPP-style IQ request or a presence request. The fromAddress and toAddress values have the same meaning as for the SendInstantMessage function. The content value should be a dictionary with the following elements: type this element should be a string - \"get\", \"set\", \"result\", etc. To send a presence request, this element should be \"cgp_presence\".",
       "anchor": "SendXMPPIQ",
       "minArgs": 3,
       "maxArgs": 3,
@@ -2891,7 +2886,7 @@
       "params": [
         "object"
       ],
-      "doc": "This procedure is used to set result of synchronous script execution. The object parameter will be passed as the result of the RunScript function. Certain environments (such as Real-Time Application environments) provide multitasking functionality. In these environments, program invocations (Tasks) can locate each other and exchange data.",
+      "doc": "This procedure is used to set result of synchronous script execution. The object parameter will be passed as the result of the RunScript function.",
       "anchor": "SetResult",
       "minArgs": 1,
       "maxArgs": 1,
@@ -3027,7 +3022,7 @@
         "headers",
         "content"
       ],
-      "doc": "This function composes and sends an E-mail message. The headers value should be a null-value or a dictionary. This dictionary specifies the header field values for the composed E-mail message. The following elements are processed (all of them are optional): - From the element value should be an E-mail address string.",
+      "doc": "This function composes and sends an E-mail message. The headers value should be a null-value or a dictionary. This dictionary specifies the header field values for the composed E-mail message. The following elements are processed (all of them are optional): From the element value should be an E-mail address string.",
       "anchor": "SubmitEMail",
       "minArgs": 2,
       "maxArgs": 2,
@@ -3135,7 +3130,7 @@
       "params": [
         "what"
       ],
-      "doc": "This function retrieves platform-specific data specified with the what value, which should be a string. The following what values are supported (case-insensitive, unless explicitly specified): - \"serverVersion\" The function returns a string with this CommuniGate Pro Server version.",
+      "doc": "This function retrieves platform-specific data specified with the what value, which should be a string. The following what values are supported (case-insensitive, unless explicitly specified): \"serverVersion\" The function returns a string with this CommuniGate Pro Server version.",
       "anchor": "SystemInfo",
       "minArgs": 1,
       "maxArgs": 1,
@@ -3381,7 +3376,7 @@
         "fileDescr",
         "data"
       ],
-      "doc": "This function stores the data value (which should be either a datablock or a string) into the specified File Storage file. If the fileDescr value is a string, it specifies the name of the file to write to. The entire file is rewritten.",
+      "doc": "This function stores the data value (which should be either a datablock or a string) into the specified File Storage file. If the fileDescr value is a string, it specifies the name of the file to write to. The entire file is rewritten. If the fileDescr value is a dictionary, the following dictionary elements are used: fileName a string - the name of the file to write position an optional element.",
       "anchor": "WriteStorageFile",
       "minArgs": 2,
       "maxArgs": 2,
@@ -3638,10 +3633,14 @@
     {
       "name": "Disconnect",
       "signatures": [
-        "Disconnect()"
+        "Disconnect()",
+        "Disconnect(reasonCode,reasonText)"
       ],
-      "params": [],
-      "doc": "Disconnect(reasonCode,reasonText) This procedure ends the active session, if any, and the Task is placed into the disconnected mode. If the reasonCode is specified, its value should be a positive number, and if the reasonText is specified, its value should be a string.",
+      "params": [
+        "reasonCode",
+        "reasonText"
+      ],
+      "doc": "This procedure ends the active session, if any, and the Task is placed into the disconnected mode. If the reasonCode is specified, its value should be a positive number, and if the reasonText is specified, its value should be a string. If the BYE signal is sent to the peer, the Reason header field with the reasonCode and reasonText values is added to the signal request.",
       "anchor": null,
       "minArgs": 0,
       "maxArgs": 2,
@@ -3708,7 +3707,7 @@
         "GetPlayPosition()"
       ],
       "params": [],
-      "doc": "This function returns a number - the portion of the media (in milliseconds) played by the last PlayFile or Play operation. 2 seconds, the function returns 1200. If the last Play\\* operation did not play its sound (because the DTMF buffer was not empty or there was an enqueued Event), the function returns either 0, or a negative value.",
+      "doc": "This function returns a number - the portion of the media (in milliseconds) played by the last PlayFile or Play operation. 2 seconds, the function returns 1200. If the last Play* operation did not play its sound (because the DTMF buffer was not empty or there was an enqueued Event), the function returns either 0, or a negative value.",
       "anchor": null,
       "minArgs": 0,
       "maxArgs": 0,
@@ -3865,7 +3864,7 @@
       "params": [
         "input"
       ],
-      "doc": "This function returns a true-value if the input value is an Instant Message Event. Otherwise the function returns a null-value. The event parameter is a dictionary. It contains the same elements as the SendInstantMessage function content parameter, with the following additional elements: - From a string - the sender E-Mail address. - peerName an optional string - the sender \"real name\".",
+      "doc": "This function returns a true-value if the input value is an Instant Message Event. Otherwise the function returns a null-value. The event parameter is a dictionary. It contains the same elements as the SendInstantMessage function content parameter, with the following additional elements: From a string - the sender E-Mail address.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -3972,12 +3971,14 @@
     {
       "name": "MediaOption",
       "signatures": [
-        "MediaOption(optionName)"
+        "MediaOption(optionName)",
+        "MediaOption(optionName,newValue)"
       ],
       "params": [
-        "optionName"
+        "optionName",
+        "newValue"
       ],
-      "doc": "MediaOption(optionName,newValue) This function return the current value of a Task Media Channel option. If the newValue is specified and its value is not a null-value, then it is set as the new option value. The optionName value should be a string and it specifies the option name.",
+      "doc": "This function return the current value of a Task Media Channel option. If the newValue is specified and its value is not a null-value, then it is set as the new option value. The optionName value should be a string and it specifies the option name.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 2,
@@ -4073,7 +4074,7 @@
       "params": [
         "fieldName"
       ],
-      "doc": "This function returns a data element of the pending incoming request. If a request is pending, the function returns the following data, depending on the fieldName value, which should be a string: - Call-ID the function returns a string with the request Call-ID value. - From, To, Referred-By the function returns a dictionary if the field exists in the request.",
+      "doc": "This function returns a data element of the pending incoming request. If a request is pending, the function returns the following data, depending on the fieldName value, which should be a string: Call-ID the function returns a string with the request Call-ID value.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -4098,12 +4099,14 @@
     {
       "name": "Play",
       "signatures": [
-        "Play(waveData)"
+        "Play(waveData)",
+        "Play(waveData,msec)"
       ],
       "params": [
-        "waveData"
+        "waveData",
+        "msec"
       ],
-      "doc": "Play(waveData,msec) This procedure plays the waveData value which should be a datablock. The datablock should contain media data in one of the supported formats. If the msec parameter is specified, it works in the same way as it works for the PlayFile procedure.",
+      "doc": "This procedure plays the waveData value which should be a datablock. The datablock should contain media data in one of the supported formats. If the msec parameter is specified, it works in the same way as it works for the PlayFile procedure.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 2,
@@ -4113,12 +4116,14 @@
     {
       "name": "PlayFile",
       "signatures": [
-        "PlayFile(fileName)"
+        "PlayFile(fileName)",
+        "PlayFile(fileName,msec)"
       ],
       "params": [
-        "fileName"
+        "fileName",
+        "msec"
       ],
-      "doc": "PlayFile(fileName,msec) This procedure retrieves a file from its Application Environment and plays it. The string parameter fileName specifies the file name. If the specified file name does not contain a file name extension, the supported extensions are added and tried. The file should contain media data in one of the supported formats.",
+      "doc": "This procedure retrieves a file from its Application Environment and plays it. The string parameter fileName specifies the file name. If the specified file name does not contain a file name extension, the supported extensions are added and tried. The file should contain media data in one of the supported formats. If the msec parameter is specified, its value should be a number.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 2,
@@ -4154,13 +4159,17 @@
     {
       "name": "PlayTone",
       "signatures": [
-        "PlayTone(freq,msec)"
+        "PlayTone(freq,msec)",
+        "PlayTone(freq,msec,freq2)",
+        "PlayTone(freq,msec,freq2,ratio)"
       ],
       "params": [
         "freq",
-        "msec"
+        "msec",
+        "freq2",
+        "ratio"
       ],
-      "doc": "PlayTone(freq,msec,freq2) PlayTone(freq,msec,freq2,ratio) This procedure plays a \"tone\" (a sine wave). The freq parameter value should be a non-negative number - the wave frequency (in Hz). If the value is zero, audio silence is generated. The msec parameter value should be a number, it works in the way as it works for the PlayFile procedure.",
+      "doc": "This procedure plays a \"tone\" (a sine wave). The freq parameter value should be a non-negative number - the wave frequency (in Hz). If the value is zero, audio silence is generated. The msec parameter value should be a number, it works in the way as it works for the PlayFile procedure.",
       "anchor": null,
       "minArgs": 2,
       "maxArgs": 4,
@@ -4416,7 +4425,7 @@
       "params": [
         "params"
       ],
-      "doc": "This function sends an INFO request to the Task peer. The Task should be in the connected mode. The params value should be a dictionary containing the INFO request data. If the operation fails, the function returns an error code string. If the operation succeeds, the function returns a null-value. When an INFO request is sent to a Task, the Task receives a special CallInfo Event.",
+      "doc": "This function sends an INFO request to the Task peer. The Task should be in the connected mode. The params value should be a dictionary containing the INFO request data. If the operation fails, the function returns an error code string. If the operation succeeds, the function returns a null-value.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -4444,7 +4453,7 @@
       "params": [
         "params"
       ],
-      "doc": "This function sends a NOTIFY request to an arbitrary entity (the Task must be in the disconnected mode). The params value must be a dictionary containing the following string elements: - \"\" (empty string), From, To, Call-ID these elements are processed in the same way as the StartCall destination parameter elements.",
+      "doc": "This function sends a NOTIFY request to an arbitrary entity (the Task must be in the disconnected mode). The params value must be a dictionary containing the following string elements: \"\" (empty string), From, To, Call-ID these elements are processed in the same way as the StartCall destination parameter elements.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -4543,7 +4552,7 @@
       "params": [
         "parameters"
       ],
-      "doc": "This procedure sets call (INVITE dialog) parameters. The parameters value should be a dictionary with new call option parameters. The existing parameter values are removed. The following parameters are used for all dialog requests: - Max-Forwards a positive number used to limit the number of \"hops\" a request can traverse.",
+      "doc": "This procedure sets call (INVITE dialog) parameters. The parameters value should be a dictionary with new call option parameters. The existing parameter values are removed. The following parameters are used for all dialog requests: Max-Forwards a positive number used to limit the number of \"hops\" a request can traverse.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -4656,7 +4665,7 @@
       "params": [
         "arg"
       ],
-      "doc": "This procedure instructs the very next Play* operation to start playing its sound not from its beginning. The arg value should be a non-negative number. It specifies how many milliseconds of the media should be skipped before the Play\\* operation starts to play the media.",
+      "doc": "This procedure instructs the very next Play* operation to start playing its sound not from its beginning. The arg value should be a non-negative number. It specifies how many milliseconds of the media should be skipped before the Play* operation starts to play the media.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -4718,12 +4727,14 @@
     {
       "name": "SignalOption",
       "signatures": [
-        "SignalOption(optionName)"
+        "SignalOption(optionName)",
+        "SignalOption(optionName,newValue)"
       ],
       "params": [
-        "optionName"
+        "optionName",
+        "newValue"
       ],
-      "doc": "SignalOption(optionName,newValue) This function return the current value of a Task Signal option. If the newValue value is specified and its value is not a null-value, then it is set as the new option value. The optionName value should be a string and it specifies the option name.",
+      "doc": "This function return the current value of a Task Signal option. If the newValue value is specified and its value is not a null-value, then it is set as the new option value. The optionName value should be a string and it specifies the option name. The following options are supported: \"refer\" this option specifies how the Task processes the REFER requests and INVITE/replaces requests.",
       "anchor": null,
       "minArgs": 2,
       "maxArgs": 2,
@@ -4769,7 +4780,7 @@
       "params": [
         "destination"
       ],
-      "doc": "This function initiates an outgoing session. The Task should be in the disconnected mode. The destination value should be a string containing the URI to send a session request to, or a dictionary containing the following string elements: - \"\" (empty string) the URI to send the request to. - From (optional) an E-mail, URI, or field-data to use for the request From field.",
+      "doc": "This function initiates an outgoing session. The Task should be in the disconnected mode. The destination value should be a string containing the URI to send a session request to, or a dictionary containing the following string elements: \"\" (empty string) the URI to send the request to.",
       "anchor": null,
       "minArgs": 1,
       "maxArgs": 1,
@@ -5485,7 +5496,7 @@
         "MONTHNAMES()"
       ],
       "params": [],
-      "doc": "The function returns a fixed array with 12 string elements: (\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\") . - WEEKDAYS() and WEEKDAYS(expression) If expression is not specified, the function returns a fixed array with 7 string elements: (Sun,Mon,Tue,Wed,Thu,Fri,Sat).",
+      "doc": "The function returns a fixed array with 12 string elements: (\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\") .",
       "anchor": null,
       "source": "docs"
     },

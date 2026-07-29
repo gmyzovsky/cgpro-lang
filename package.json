@@ -12,11 +12,16 @@
   "engines": {
     "vscode": "^1.80.0"
   },
-  "categories": ["Programming Languages"],
+  "categories": [
+    "Programming Languages"
+  ],
   "private": true,
   "main": "./client/out/extension",
-  "activationEvents": ["onLanguage:cgpl"],
+  "activationEvents": [
+    "onLanguage:cgpl"
+  ],
   "scripts": {
+    "fetch:docs": "node tools/fetch-docs.mjs",
     "extract:builtins": "node tools/extract-builtins.mjs",
     "build:grammars": "node tools/build-grammars.mjs",
     "build:server": "tsc -p server",
@@ -40,20 +45,40 @@
     "languages": [
       {
         "id": "cgpl",
-        "aliases": ["CommuniGate Pro CG/PL", "CG/PL"],
-        "extensions": [".wcgp", ".wcgi", ".sppr", ".sppi", ".scgp"],
+        "aliases": [
+          "CommuniGate Pro CG/PL",
+          "CG/PL"
+        ],
+        "extensions": [
+          ".wcgp",
+          ".wcgi",
+          ".sppr",
+          ".sppi",
+          ".scgp"
+        ],
         "configuration": "./language-configuration/cgpl.json"
       },
       {
         "id": "wssp",
-        "aliases": ["CommuniGate Pro WSSP", "WSSP"],
-        "extensions": [".wssp", ".wssi"],
+        "aliases": [
+          "CommuniGate Pro WSSP",
+          "WSSP"
+        ],
+        "extensions": [
+          ".wssp",
+          ".wssi"
+        ],
         "configuration": "./language-configuration/wssp.json"
       },
       {
         "id": "cgpro-data",
-        "aliases": ["CommuniGate Pro Data"],
-        "extensions": [".data", ".settings"],
+        "aliases": [
+          "CommuniGate Pro Data"
+        ],
+        "extensions": [
+          ".data",
+          ".settings"
+        ],
         "configuration": "./language-configuration/cgpro-data.json"
       }
     ],

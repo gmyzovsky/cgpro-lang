@@ -64,14 +64,18 @@ The source of truth for built-in function names is the published developer docum
 [PBXApp](https://doc.communigatepro.ru/development/PBXApp.html),
 [WebApp](https://doc.communigatepro.ru/development/WebApp.html),
 [WSSP](https://doc.communigatepro.ru/development/WSSP.html) and
-[Data](https://doc.communigatepro.ru/development/Data.html). The extractor reads the Markdown form of those
-pages; point `CGPRO_DOCS_ROOT` at a directory holding `CGPL.md`, `PBXApp.md`, `WebApp.md` and `WSSP.md`.
-Nothing is hand-copied:
+[Data](https://doc.communigatepro.ru/development/Data.html). Nothing is hand-copied, and the whole chain runs
+from those public pages - a network connection is the only prerequisite:
 
 ```sh
-CGPRO_DOCS_ROOT=/path/to/docs node tools/extract-builtins.mjs
-node tools/build-grammars.mjs     # builtins.json + hand-authored grammar shape -> syntaxes/*.tmLanguage.json
+npm run fetch:docs                # download the pages above into ./docs
+npm run extract:builtins          # docs -> tools/builtins.json
+npm run build:grammars            # builtins.json + hand-authored grammar shape -> syntaxes/*.tmLanguage.json
 ```
+
+`tools/builtins.json` is checked in, so building the extension, the server or the JetBrains plugin needs no
+documentation at all; fetching and extracting is only needed to refresh it. The extractor accepts either the
+published HTML or a local Markdown copy of the same pages - set `CGPRO_DOCS_ROOT` to point at either.
 
 `tools/builtins-supplement.json` covers what the prose does not: functions that exist but are undocumented,
 and the argument counts no page states. It is merged into `tools/builtins.json` by the same extractor, and
