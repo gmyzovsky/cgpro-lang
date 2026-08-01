@@ -9,6 +9,13 @@ jetbrains-plugin/.intellijPlatform/
 
 .DS_Store
 
+# .vscode is excluded by the global ignore file. Git will not look inside an
+# excluded directory, so the directory has to be re-included before a single
+# file can be: track the shared debug config, keep personal settings out.
+!.vscode/
+.vscode/*
+!.vscode/launch.json
+
 # compiled LSP server / client
 server/out/
 client/out/

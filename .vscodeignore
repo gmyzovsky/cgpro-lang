@@ -1,6 +1,24 @@
+# The client requires vscode-languageclient at runtime and the server requires
+# vscode-languageserver, so node_modules cannot be excluded wholesale - only the
+# build-time packages inside it.
+**/node_modules/.bin/**
+**/node_modules/typescript/**
+**/node_modules/@types/**
+**/node_modules/undici-types/**
+**/node_modules/vscode-oniguruma/**
+**/node_modules/vscode-textmate/**
+**/node_modules/**/*.ts
+**/node_modules/**/*.map
+
 jetbrains-plugin/**
-node_modules/**
 tools/vendor/**
+tools/*.mjs
+docs/**
+client/src/**
+server/src/**
+**/tsconfig.json
+**/*.js.map
 .gitignore
 .git/**
+.vscode/**
 *.vsix
