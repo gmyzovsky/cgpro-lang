@@ -29,10 +29,45 @@ entry main is
 end entry;
 `;
 
+// The module fixtures live beside the sample on purpose: an external-declaration
+// resolves to a sibling file, and bridgedloophash.sppi is deliberately spelled
+// in lower case while the function is not, which is how stock CommuniGate Pro
+// scripts are written and the case a constructed file name gets wrong on Linux.
+const MODULE = `function bridgedLoopHash(peerLeg, finishTime) {
+  return peerLeg;
+}
+`;
+
+const QUALIFIED_MODULE = `function sharedTools::formatLeg(leg) is
+  return String(leg);
+end function;
+`;
+
+const CALLER = `function bridgedLoopHash(peerLeg, finishTime) external;
+function sharedTools::formatLeg(leg) external;
+function noSuchModule(x) external;
+
+entry dispatch is
+  Void(bridgedLoopHash("leg", null));
+  Void(sharedTools::formatLeg("leg"));
+  Void(noSuchModule(1));
+end entry;
+`;
+
 const dir = mkdtempSync(path.join(tmpdir(), 'cgpl-smoke-'));
+const toUri = (f) => `file://${f.split('/').map(encodeURIComponent).join('/')}`;
+
 const file = path.join(dir, 'sample.sppr');
 writeFileSync(file, SAMPLE);
-const uri = `file://${file.split('/').map(encodeURIComponent).join('/')}`;
+const uri = toUri(file);
+
+const modulePath = path.join(dir, 'bridgedloophash.sppi');
+const qualifiedModulePath = path.join(dir, 'sharedtools.sppi');
+const callerPath = path.join(dir, 'servicedispatcher.sppi');
+writeFileSync(modulePath, MODULE);
+writeFileSync(qualifiedModulePath, QUALIFIED_MODULE);
+writeFileSync(callerPath, CALLER);
+const callerUri = toUri(callerPath);
 
 const child = spawn(process.execPath, [serverPath, '--stdio'], { stdio: ['pipe', 'pipe', 'pipe'] });
 
@@ -100,14 +135,16 @@ function waitForNotification(method, timeoutMs = 5000) {
   });
 }
 
-/** Offset of `needle` in SAMPLE, as an LSP position. */
-function positionOf(needle, occurrence = 1) {
+/** Offset of `needle` in `text`, as an LSP position. */
+function positionIn(text, needle, occurrence = 1) {
   let index = -1;
-  for (let i = 0; i < occurrence; i++) index = SAMPLE.indexOf(needle, index + 1);
-  const before = SAMPLE.slice(0, index);
+  for (let i = 0; i < occurrence; i++) index = text.indexOf(needle, index + 1);
+  const before = text.slice(0, index);
   const line = before.split('\n').length - 1;
   return { line, character: index - (before.lastIndexOf('\n') + 1) };
 }
+
+const positionOf = (needle, occurrence = 1) => positionIn(SAMPLE, needle, occurrence);
 
 let failures = 0;
 const check = (label, condition, detail) => {
@@ -169,6 +206,56 @@ try {
   });
   check('jumps to a local variable', varDef && varDef.range.start.line === positionOf('var local1').line,
     JSON.stringify(varDef?.range));
+
+  console.log('\nexternal modules:');
+  notify('textDocument/didOpen', {
+    textDocument: { uri: callerUri, languageId: 'cgpl', version: 1, text: CALLER },
+  });
+
+  // The unqualified form: the module name IS the section name, so the call
+  // has to leave this file for bridgedloophash.sppi.
+  const externalDef = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'bridgedLoopHash("leg"'),
+  });
+  check('follows an unqualified external to its module', externalDef?.uri === toUri(modulePath),
+    JSON.stringify(externalDef));
+  check('lands on the definition, not the declaration',
+    externalDef?.range.start.line === positionIn(MODULE, 'bridgedLoopHash').line,
+    JSON.stringify(externalDef?.range));
+
+  // Standing on the declaration itself has to do the same thing; jumping to
+  // the line under the cursor would be no answer at all.
+  const fromDeclaration = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'bridgedLoopHash(peerLeg'),
+  });
+  check('follows it from the declaration too', fromDeclaration?.uri === toUri(modulePath),
+    JSON.stringify(fromDeclaration));
+
+  const qualifiedDef = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'sharedTools::formatLeg("leg")'),
+  });
+  check('follows a qualified external to its module', qualifiedDef?.uri === toUri(qualifiedModulePath),
+    JSON.stringify(qualifiedDef));
+
+  // No module on disk is the normal state of a half-written application. The
+  // declaration is still a useful answer, and it must not be a crash.
+  const missingDef = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'noSuchModule(1)'),
+  });
+  check('falls back to the declaration when the module is missing',
+    missingDef?.uri === callerUri && missingDef?.range.start.line === positionIn(CALLER, 'noSuchModule(x)').line,
+    JSON.stringify(missingDef));
+
+  const callerDiags = notifications
+    .filter((n) => n.method === 'textDocument/publishDiagnostics' && n.params.uri === callerUri)
+    .pop();
+  check('does not call an external declaration an unknown call',
+    (callerDiags?.params.diagnostics ?? []).length === 0,
+    JSON.stringify(callerDiags?.params.diagnostics));
 
   console.log('\nhover:');
   const hover = await request('textDocument/hover', {

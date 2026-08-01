@@ -2,8 +2,8 @@
 //
 // Everything it knows comes from three places: the parser (syntax), the
 // analyzer (symbols in the open file), and the generated built-in database.
-// Nothing here reaches across files except go-to-definition for
-// module-qualified names, which resolves by filename.
+// Nothing here reaches across files except go-to-definition on an
+// external-declaration, which resolves the module by filename.
 
 import {
   createConnection,
@@ -163,27 +163,49 @@ function tokenAt(text: string, offset: number): { text: string; start: number; e
 }
 
 /**
- * A module-qualified name refers to a separate program module, which the
- * server loads by file name (CGPL.md #Modules). Look for a sibling file with
- * that base name and any CG/PL extension.
+ * An external-declaration names a separate program module, which the server
+ * loads by file name (CGPL.md #Modules). Look for a sibling file with that base
+ * name and any CG/PL extension.
  */
 const CGPL_EXTENSIONS = ['.sppi', '.sppr', '.wcgp', '.wcgi', '.scgp'];
 
+/**
+ * CG/PL names are case-insensitive, so the module bridgedLoopHash and the file
+ * bridgedloophash.sppi are the same thing. Probing constructed spellings gets
+ * this wrong twice over: it misses on Linux, where CommuniGate Pro servers run,
+ * and on a case-insensitive file system it succeeds while reporting back the
+ * spelling that was guessed rather than the one on disk. Read the directory and
+ * match case-insensitively instead - one listing per jump, and the answer is
+ * the real file name.
+ */
 function findModuleFile(docUri: string, moduleName: string): string | undefined {
   const dir = path.dirname(URI.toFsPath(docUri));
-  for (const ext of CGPL_EXTENSIONS) {
-    // The file system may or may not be case sensitive; try the name as
-    // written first, then a lower-cased variant.
-    for (const base of [moduleName, moduleName.toLowerCase()]) {
-      const candidate = path.join(dir, base + ext);
-      try {
-        if (fs.statSync(candidate).isFile()) return candidate;
-      } catch {
-        /* not there */
-      }
-    }
+  let entries: string[];
+  try {
+    entries = fs.readdirSync(dir);
+  } catch {
+    return undefined;
   }
-  return undefined;
+
+  const wanted = moduleName.toLowerCase();
+  const extensionRank = (name: string): number =>
+    CGPL_EXTENSIONS.indexOf(path.extname(name).toLowerCase());
+  const matches = entries.filter(
+    (entry) =>
+      extensionRank(entry) >= 0 &&
+      path.basename(entry, path.extname(entry)).toLowerCase() === wanted,
+  );
+  if (matches.length === 0) return undefined;
+
+  // An exact spelling wins over a case variant; past that, the extension order
+  // decides, so the same neighbouring files always resolve the same way.
+  matches.sort(
+    (a, b) =>
+      Number(path.basename(a, path.extname(a)) !== moduleName) -
+        Number(path.basename(b, path.extname(b)) !== moduleName) ||
+      extensionRank(a) - extensionRank(b),
+  );
+  return path.join(dir, matches[0]);
 }
 
 function definitionInFile(file: string, sectionLower: string): Location | undefined {
@@ -198,12 +220,36 @@ function definitionInFile(file: string, sectionLower: string): Location | undefi
     analysis.sections.get(sectionLower) ??
     // A module's section may be declared unqualified inside its own file.
     analysis.sections.get(sectionLower.split('::').pop() ?? sectionLower);
-  if (!target) return undefined;
+  // The module file may itself only re-declare the section as external; that is
+  // a dead end, not a definition, and following it would land the cursor on
+  // another 'external;' line.
+  if (!target || target.bodyKind === 'external') return undefined;
   const doc = TextDocument.create(URI.fromFsPath(file), 'cgpl', 0, text);
   return {
     uri: doc.uri,
     range: rangeOf(doc, target.nameStart, target.nameEnd),
   };
+}
+
+/**
+ * Follows an external-declaration to the module that defines it.
+ *
+ * Which module is named depends on how the declaration was written, and the two
+ * forms differ (CGPL.md #Modules):
+ *
+ *   function myName(p) external;           -> module "myName",   section myName
+ *   function myModule::myName(p) external; -> module "myModule", section myName
+ *
+ * The unqualified form is the one stock CommuniGate Pro scripts use, and it is
+ * easy to misread: the module name is not absent, it is the section name.
+ */
+function externalDefinition(docUri: string, section: SymbolInfo): Location | undefined {
+  if (section.bodyKind !== 'external') return undefined;
+  const sectionName = section.name.split('::').pop() ?? section.name;
+  const moduleName = section.module ?? sectionName;
+  const file = findModuleFile(docUri, moduleName);
+  if (!file) return undefined;
+  return definitionInFile(file, sectionName.toLowerCase());
 }
 
 // --- completion -------------------------------------------------------------
@@ -330,12 +376,16 @@ connection.onDefinition((params) => {
   const offset = doc.offsetAt(params.position);
   const analysis = analysisFor(doc);
 
-  // A qualified name may point at another module's file.
+  // A qualified name may point at another module's file even with no matching
+  // declaration in this one.
   const call = analysis.calls.find((c) => offset >= c.start && offset <= c.end);
   if (call && call.lower.includes('::')) {
     const [moduleName] = call.lower.split('::');
     const file = findModuleFile(doc.uri, moduleName);
     if (file) {
+      // The qualified name, so that a module declaring its own section as
+      // module::name still matches; definitionInFile falls back to the bare
+      // section name for the usual case where it does not.
       const loc = definitionInFile(file, call.lower);
       if (loc) return loc;
     }
@@ -347,7 +397,14 @@ connection.onDefinition((params) => {
 
   const section = analysis.sections.get(lower);
   if (section) {
-    return { uri: doc.uri, range: rangeOf(doc, section.nameStart, section.nameEnd) } as Location;
+    // An external-declaration is a signpost, not a destination: jumping to it
+    // would leave the cursor on the 'external;' line the user is already
+    // looking at. Follow it to the module that defines the section, and fall
+    // back to the declaration only when that module cannot be found.
+    return (
+      externalDefinition(doc.uri, section) ??
+      ({ uri: doc.uri, range: rangeOf(doc, section.nameStart, section.nameEnd) } as Location)
+    );
   }
 
   // Fall back to a local variable or parameter declaration.

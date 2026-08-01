@@ -176,6 +176,19 @@ jetbrains-plugin/               Gradle IntelliJ Platform plugin: syntaxes/ via T
 
 Both semantic checks stay quiet while a file has syntax errors, and either can be switched off in settings.
 
+Analysis is otherwise per-file, with one exception: go-to-definition follows an external-declaration into the
+module that defines it. Which module that is depends on the form, and the unqualified one reads as if no module
+were named at all - it names the section instead ([CGPL, Modules](https://doc.communigatepro.ru/development/CGPL.html#Modules)):
+
+| declaration | module loaded | section called |
+| --- | --- | --- |
+| `function myName(p) external;` | `myName` | `myName` |
+| `function myModule::myName(p) external;` | `myModule` | `myName` |
+
+The module is looked up among sibling files with a CG/PL extension, matched case-insensitively because CG/PL
+names are - so `bridgedLoopHash` finds `bridgedloophash.sppi`. When no such file exists, the jump lands on the
+declaration.
+
 ## Roadmap
 
 - **Done** - syntax highlighting from generated grammars, in VSCode and JetBrains IDEs.
