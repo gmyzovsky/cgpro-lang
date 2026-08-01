@@ -24,10 +24,17 @@ dependencies {
     intellijPlatform {
         intellijIdeaCommunity(providers.gradleProperty("platformVersion"))
         bundledPlugin("org.jetbrains.plugins.textmate")
+        plugin("com.redhat.devtools.lsp4ij:" + providers.gradleProperty("lsp4ijVersion").get())
     }
 }
 
 intellijPlatform {
+    // Bytecode instrumentation compiles GUI Designer .form files and injects
+    // @NotNull assertions into Java bytecode. This plugin is Kotlin only and has
+    // no forms, so the pass has nothing to do - and skipping it drops the
+    // java-compiler-ant-tasks download the build would otherwise need.
+    instrumentCode = false
+
     pluginConfiguration {
         id = providers.gradleProperty("pluginGroup")
         version = providers.gradleProperty("pluginVersion")
@@ -52,13 +59,64 @@ intellijPlatform {
 // it for its own TextMate bundle. (Symptom when this is wrong: TextMate logs
 // "Cannot find referenced file `info.plist` in bundle ...tmbundle" and the
 // grammar silently fails to load.)
-val grammarsDir = rootDir.resolve("../syntaxes")
+val repoRoot = rootDir.resolve("..")
+val grammarsDir = repoRoot.resolve("syntaxes")
+val serverDir = repoRoot.resolve("server")
 
 tasks.register<Copy>("copyGrammars") {
     into(layout.buildDirectory.dir("generated-resources/bundles"))
     from(grammarsDir.resolve("cgpl.tmLanguage.json")) { into("cgpl.tmbundle/Syntaxes") }
     from(grammarsDir.resolve("wssp.tmLanguage.json")) { into("wssp.tmbundle/Syntaxes") }
     from(grammarsDir.resolve("cgpro-data.tmLanguage.json")) { into("cgpro-data.tmbundle/Syntaxes") }
+}
+
+// The same compiled CG/PL language server the VSCode extension runs, shipped
+// under the plugin directory as lsp/ so LSP4IJ can launch it with Node. The
+// layout is not free-form: server/out/builtins.js reads its function database
+// via path.resolve(__dirname, '../../tools/builtins.json'), so server/out and
+// tools/ have to stay siblings, and require('vscode-languageserver') has to
+// find server/node_modules next to server/out.
+//
+// Runtime dependencies are listed explicitly rather than excluded by name.
+// server/node_modules also holds the TypeScript compiler, and an exclude list
+// silently starts shipping whatever a future dependency adds; an include list
+// fails loudly instead.
+val serverRuntimeDependencies = listOf(
+    "vscode-jsonrpc",
+    "vscode-languageserver",
+    "vscode-languageserver-protocol",
+    "vscode-languageserver-textdocument",
+    "vscode-languageserver-types",
+)
+
+tasks.register<Copy>("copyLanguageServer") {
+    into(layout.buildDirectory.dir("generated-resources/lsp"))
+    from(serverDir.resolve("out")) {
+        into("server/out")
+        include("**/*.js")
+    }
+    from(serverDir.resolve("node_modules")) {
+        into("server/node_modules")
+        serverRuntimeDependencies.forEach { include("$it/**") }
+        exclude("**/*.ts", "**/*.map")
+    }
+    from(repoRoot.resolve("tools/builtins.json")) { into("tools") }
+
+    doFirst {
+        // Copy skips missing sources without complaining, and a plugin that
+        // ships grammars but no server is exactly the failure this stage is
+        // meant to remove. Check before the copy, not after the release.
+        val required = listOf(
+            serverDir.resolve("out/server.js"),
+            serverDir.resolve("node_modules/vscode-languageserver"),
+            repoRoot.resolve("tools/builtins.json"),
+        ).filterNot { it.exists() }
+        check(required.isEmpty()) {
+            "Language server payload is incomplete - missing:\n" +
+                required.joinToString("\n") { "  $it" } +
+                "\n\nRun 'npm install && npm run build' in the repository root first."
+        }
+    }
 }
 
 sourceSets {
@@ -69,14 +127,16 @@ sourceSets {
 
 tasks {
     prepareSandbox {
-        dependsOn("copyGrammars")
+        dependsOn("copyGrammars", "copyLanguageServer")
         from("src/main/resources/bundles") { into(pluginName.map { "$it/bundles" }) }
         from(layout.buildDirectory.dir("generated-resources/bundles")) { into(pluginName.map { "$it/bundles" }) }
+        from(layout.buildDirectory.dir("generated-resources/lsp")) { into(pluginName.map { "$it/lsp" }) }
     }
     prepareTestSandbox {
-        dependsOn("copyGrammars")
+        dependsOn("copyGrammars", "copyLanguageServer")
         from("src/main/resources/bundles") { into(pluginName.map { "$it/bundles" }) }
         from(layout.buildDirectory.dir("generated-resources/bundles")) { into(pluginName.map { "$it/bundles" }) }
+        from(layout.buildDirectory.dir("generated-resources/lsp")) { into(pluginName.map { "$it/lsp" }) }
     }
 }
 

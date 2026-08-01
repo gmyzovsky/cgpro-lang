@@ -27,15 +27,31 @@ code --install-extension cgpro-lang-0.1.0.vsix
 
 ### JetBrains IDEs (IntelliJ IDEA, CLion, WebStorm, PyCharm, ...)
 
-Requires the bundled **TextMate** plugin (enabled by default in every JetBrains IDE).
+Requires two plugins: the bundled **TextMate** one, enabled by default everywhere, and
+[**LSP4IJ**](https://plugins.jetbrains.com/plugin/23257-lsp4ij) from the Marketplace, which the language server
+runs behind. Install LSP4IJ first, or the IDE will refuse to load this plugin.
+
+The server itself is Node, and the plugin ships it but not a runtime, so **Node.js 18 or newer** has to be
+installed for anything beyond highlighting. It is looked up on `PATH` first, then in the usual Homebrew, nvm,
+fnm, Volta and asdf locations. If yours is somewhere else, name it in `Help -> Edit Custom VM Options`:
+
+```properties
+-Dcgpro.lang.nodePath=/path/to/node
+```
+
+Build the plugin against the compiled server:
 
 ```sh
+npm install && npm run build          # produces the server the plugin ships
 cd jetbrains-plugin
 JAVA_HOME=<path to a JDK 21 install> ./gradlew buildPlugin
 ```
 
 Then in your IDE: `Settings -> Plugins -> ⚙ -> Install Plugin from Disk...` and pick
 `jetbrains-plugin/build/distributions/cgpro-lang-0.1.0.zip`.
+
+To check the server came up, open `LSP Consoles` in the tool window bar - LSP4IJ lists **CommuniGate Pro CG/PL**
+there with its traffic, and any startup failure is reported in that console rather than silently.
 
 > `.data`/`.settings` are generic extensions other plugins may also claim. If highlighting doesn't kick in for
 > those specifically, check `Settings -> Editor -> File Types` for a conflicting association.
@@ -146,7 +162,7 @@ server/                         the CG/PL language server: lexer, parser, analyz
 client/                         VSCode client that launches the server
 tools/                          extractors, grammar generator, validation harnesses
 examples/                       sample sources, including a file exercising every scope
-jetbrains-plugin/               Gradle IntelliJ Platform plugin wrapping syntaxes/ via TextMate
+jetbrains-plugin/               Gradle IntelliJ Platform plugin: syntaxes/ via TextMate, server/ via LSP4IJ
 ```
 
 ## What the language server checks
@@ -165,5 +181,5 @@ Both semantic checks stay quiet while a file has syntax errors, and either can b
 - **Done** - syntax highlighting from generated grammars, in VSCode and JetBrains IDEs.
 - **Done** - the language server: parser with error recovery, diagnostics, outline, go-to-definition,
   completion, hover and signature help.
-- **Next** - JetBrains via [LSP4IJ](https://github.com/redhat-developer/lsp4ij), reusing the same server, so
-  there is exactly one language implementation behind both editors.
+- **Done** - JetBrains via [LSP4IJ](https://github.com/redhat-developer/lsp4ij), running the same server
+  binary the VSCode extension does, so there is exactly one language implementation behind both editors.

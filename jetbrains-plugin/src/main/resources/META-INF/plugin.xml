@@ -13,6 +13,7 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.textmate</depends>
+    <depends>com.redhat.devtools.lsp4ij</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CGPL" implementationClass="com.gmyzovsky.cgprolang.CgplFileType"
@@ -41,5 +42,21 @@
                                     implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateEditorHighlighterProvider"/>
         <lang.syntaxHighlighterFactory language="CGProData"
                                         implementationClass="org.jetbrains.plugins.textmate.language.syntax.highlighting.TextMateSyntaxHighlighterFactory"/>
+    </extensions>
+
+    <!-- The CG/PL language server, shared with the VSCode extension. Only CGPL is
+         mapped: the server parses CG/PL, so WSSP and Data files stay on TextMate
+         highlighting alone. -->
+    <extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+        <server id="cgpl"
+                name="CommuniGate Pro CG/PL"
+                factoryClass="com.gmyzovsky.cgprolang.CgplLanguageServerFactory">
+            <description><![CDATA[
+            Diagnostics, outline, go-to-definition, completion, hover and signature help for
+            CommuniGate Pro CG/PL. Requires <a href="https://nodejs.org">Node.js</a> 18 or newer
+            on PATH.
+      ]]></description>
+        </server>
+        <languageMapping language="CGPL" serverId="cgpl" languageId="cgpl"/>
     </extensions>
 </idea-plugin>
