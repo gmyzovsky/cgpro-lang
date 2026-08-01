@@ -17,7 +17,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const { parse } = require(path.resolve(here, '../server/out/parser.js'));
 
-const CGPL_EXT = ['.wcgp', '.wcgi', '.sppr', '.sppi', '.scgp'];
+const CGPL_EXT = ['.wcgp', '.wcgi', '.sppr', '.sppi', '.scgp', '.scgi'];
 
 const dirs = process.argv.slice(2);
 if (dirs.length === 0) {

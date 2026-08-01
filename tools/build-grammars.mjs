@@ -58,7 +58,7 @@ const cgpl = {
   $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json',
   name: 'CommuniGate Pro CG/PL',
   scopeName: 'source.cgpl',
-  fileTypes: ['wcgp', 'wcgi', 'sppr', 'sppi', 'scgp'],
+  fileTypes: ['wcgp', 'wcgi', 'sppr', 'sppi', 'scgp', 'scgi'],
   patterns: [
     { include: '#comments' },
     { include: '#strings' },

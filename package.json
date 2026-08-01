@@ -54,7 +54,8 @@
           ".wcgi",
           ".sppr",
           ".sppi",
-          ".scgp"
+          ".scgp",
+          ".scgi"
         ],
         "configuration": "./language-configuration/cgpl.json"
       },

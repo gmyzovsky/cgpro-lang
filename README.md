@@ -2,7 +2,7 @@
 
 Syntax highlighting for [CommuniGate Pro](https://www.communigate.com)'s procedural languages:
 
-- **CG/PL** — the core scripting language (`.wcgp`, `.wcgi`, `.sppr`, `.sppi`, `.scgp`), including its PBXApp
+- **CG/PL** — the core scripting language (`.wcgp`, `.wcgi`, `.sppr`, `.sppi`, `.scgp`, `.scgi`), including its PBXApp
   (Real-Time Application) and WebApp built-in function extensions
 - **WSSP** — the web template language (`.wssp`, `.wssi`)
 - **CGPro Data** — the `{key = value;}` literal format used by `.data`/`.settings` files
@@ -185,9 +185,19 @@ were named at all - it names the section instead ([CGPL, Modules](https://doc.co
 | `function myName(p) external;` | `myName` | `myName` |
 | `function myModule::myName(p) external;` | `myModule` | `myName` |
 
-The module is looked up among sibling files with a CG/PL extension, matched case-insensitively because CG/PL
-names are - so `bridgedLoopHash` finds `bridgedloophash.sppi`. When no such file exists, the jump lands on the
-declaration.
+The module is looked up among sibling files, which is where the server itself loads it from: an Environment or
+Skin is a flat list of files. The name is matched case-insensitively because CG/PL names are, so
+`bridgedLoopHash` finds `bridgedloophash.sppi`. Which extension wins depends on the environment the calling
+file belongs to - a module is always stored under the *include* half of the pair:
+
+| environment | program | external module |
+| --- | --- | --- |
+| [Real-Time Application](https://doc.communigatepro.ru/development/PBXApp.html) | `.sppr` | `.sppi` |
+| [Web Application](https://doc.communigatepro.ru/development/WebApp.html) | `.wcgp` | `.wcgi` |
+| [Synchronous Script](https://doc.communigatepro.ru/development/CGPL.html#SynchronousScripts) | `.scgp` | `.scgi` |
+
+Other extensions stay reachable as a fallback, since a checkout need not be laid out the way a deployed
+Environment is. When no module file exists at all, the jump lands on the declaration.
 
 ## Roadmap
 
@@ -196,3 +206,10 @@ declaration.
   completion, hover and signature help.
 - **Done** - JetBrains via [LSP4IJ](https://github.com/redhat-developer/lsp4ij), running the same server
   binary the VSCode extension does, so there is exactly one language implementation behind both editors.
+- **TODO** - language directories in Real-Time Application Environments. An Environment is flat only at its
+  top level: it may also hold directories named for the languages they serve (`french`, `russian`, ...), one
+  level deep and never nested. A task that has selected a language reads from that directory first and falls
+  back to the Environment root ([PBXApp, Application Environments](https://doc.communigatepro.ru/development/PBXApp.html)).
+  They usually override only media, but may carry same-named `.sppr`/`.sppi`. Resolving among siblings is
+  correct for a file at the root; what is missing is the fallback from a file inside a language directory to a
+  module that exists only at the root.

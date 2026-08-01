@@ -46,7 +46,7 @@ const countStatements = (list) => {
 };
 
 for (const dir of corpora) {
-  const found = globSync(['**/*.wcgp', '**/*.wcgi', '**/*.sppr', '**/*.sppi', '**/*.scgp'], { cwd: dir });
+  const found = globSync(['**/*.wcgp', '**/*.wcgi', '**/*.sppr', '**/*.sppi', '**/*.scgp', '**/*.scgi'], { cwd: dir });
   for (const rel of found) {
     files++;
     const { program } = parse(readFileSync(path.join(dir, rel), 'utf8'));

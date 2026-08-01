@@ -162,24 +162,49 @@ function tokenAt(text: string, offset: number): { text: string; start: number; e
   return undefined;
 }
 
-/**
- * An external-declaration names a separate program module, which the server
- * loads by file name (CGPL.md #Modules). Look for a sibling file with that base
- * name and any CG/PL extension.
- */
-const CGPL_EXTENSIONS = ['.sppi', '.sppr', '.wcgp', '.wcgi', '.scgp'];
+const CGPL_EXTENSIONS = ['.sppi', '.sppr', '.wcgi', '.wcgp', '.scgi', '.scgp'];
 
 /**
- * CG/PL names are case-insensitive, so the module bridgedLoopHash and the file
- * bridgedloophash.sppi are the same thing. Probing constructed spellings gets
- * this wrong twice over: it misses on Linux, where CommuniGate Pro servers run,
- * and on a case-insensitive file system it succeeds while reporting back the
- * spelling that was guessed rather than the one on disk. Read the directory and
- * match case-insensitively instead - one listing per jump, and the answer is
- * the real file name.
+ * The extension an external module is stored under, per environment. Each pair
+ * is a program extension and the include extension its external modules use:
+ * .sppr/.sppi for Real-Time Applications (PBXApp.md), .wcgp/.wcgi for Web
+ * Applications (WebApp.md), .scgp/.scgi for synchronous scripts (CGPL.md
+ * #SynchronousScripts). A module is always the include half of the pair.
+ */
+const MODULE_EXTENSION: Record<string, string> = {
+  '.sppr': '.sppi',
+  '.sppi': '.sppi',
+  '.wcgp': '.wcgi',
+  '.wcgi': '.wcgi',
+  '.scgp': '.scgi',
+  '.scgi': '.scgi',
+};
+
+/**
+ * An external-declaration names a separate program module, which the server
+ * loads from the current Environment or Skin - a flat list of files, so a
+ * sibling of the file doing the declaring.
+ *
+ * TODO: a Real-Time Application Environment is flat only at its top level. It
+ * may also hold language directories named for the language they serve
+ * (french, russian, ...), one level deep and never nested, and a task that has
+ * selected a language reads from that directory first, falling back to the
+ * Environment root when the file is absent there (PBXApp.md #Environments).
+ * Those directories usually override only media, but they may carry .sppr/.sppi
+ * under the same names. Looking in siblings alone is right for a file at the
+ * root; what it misses is the fallback the other way, from a file inside a
+ * language directory to a module that only exists at the root.
+ *
+ * The name is matched case-insensitively because CG/PL names are: the module
+ * bridgedLoopHash and the file bridgedloophash.sppi are the same thing.
+ * Probing constructed spellings instead gets that wrong twice over - it misses
+ * on Linux, where CommuniGate Pro servers run, and on a case-insensitive file
+ * system it matches while reporting back the guessed spelling rather than the
+ * name on disk. One directory listing per jump costs less than either.
  */
 function findModuleFile(docUri: string, moduleName: string): string | undefined {
-  const dir = path.dirname(URI.toFsPath(docUri));
+  const fsPath = URI.toFsPath(docUri);
+  const dir = path.dirname(fsPath);
   let entries: string[];
   try {
     entries = fs.readdirSync(dir);
@@ -188,23 +213,27 @@ function findModuleFile(docUri: string, moduleName: string): string | undefined 
   }
 
   const wanted = moduleName.toLowerCase();
-  const extensionRank = (name: string): number =>
-    CGPL_EXTENSIONS.indexOf(path.extname(name).toLowerCase());
   const matches = entries.filter(
     (entry) =>
-      extensionRank(entry) >= 0 &&
+      CGPL_EXTENSIONS.includes(path.extname(entry).toLowerCase()) &&
       path.basename(entry, path.extname(entry)).toLowerCase() === wanted,
   );
   if (matches.length === 0) return undefined;
 
-  // An exact spelling wins over a case variant; past that, the extension order
-  // decides, so the same neighbouring files always resolve the same way.
-  matches.sort(
-    (a, b) =>
-      Number(path.basename(a, path.extname(a)) !== moduleName) -
-        Number(path.basename(b, path.extname(b)) !== moduleName) ||
-      extensionRank(a) - extensionRank(b),
-  );
+  // Which file wins matters when a Web Application and a Real-Time Application
+  // sit in one directory under a shared module name. The extension the calling
+  // environment actually loads comes first; the rest stay reachable, because a
+  // checkout need not be laid out the way a deployed Environment is, and some
+  // answer beats none.
+  const preferred = MODULE_EXTENSION[path.extname(fsPath).toLowerCase()];
+  const rank = (name: string): number => {
+    const ext = path.extname(name).toLowerCase();
+    return ext === preferred ? -1 : CGPL_EXTENSIONS.indexOf(ext);
+  };
+  const spellingRank = (name: string): number =>
+    Number(path.basename(name, path.extname(name)) !== moduleName);
+
+  matches.sort((a, b) => spellingRank(a) - spellingRank(b) || rank(a) - rank(b));
   return path.join(dir, matches[0]);
 }
 

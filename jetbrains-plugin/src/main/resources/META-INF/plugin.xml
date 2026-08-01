@@ -4,7 +4,7 @@
     <vendor url="https://github.com/gmyzovsky/cgpro-lang">German Myzovsky</vendor>
 
     <description><![CDATA[
-    Syntax highlighting for CommuniGate Pro's procedural languages: CG/PL (.wcgp, .wcgi, .sppr, .sppi, .scgp),
+    Syntax highlighting for CommuniGate Pro's procedural languages: CG/PL (.wcgp, .wcgi, .sppr, .sppi, .scgp, .scgi),
     WSSP (.wssp, .wssi), and the Data literal format (.data, .settings).
     <br/>
     Grammars are generated from the CommuniGate Pro developer documentation - see
@@ -17,7 +17,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CGPL" implementationClass="com.gmyzovsky.cgprolang.CgplFileType"
-                   fieldName="INSTANCE" language="CGPL" extensions="wcgp;wcgi;sppr;sppi;scgp"/>
+                   fieldName="INSTANCE" language="CGPL" extensions="wcgp;wcgi;sppr;sppi;scgp;scgi"/>
         <fileType name="WSSP" implementationClass="com.gmyzovsky.cgprolang.WsspFileType"
                    fieldName="INSTANCE" language="WSSP" extensions="wssp;wssi"/>
         <fileType name="CGProData" implementationClass="com.gmyzovsky.cgprolang.CgproDataFileType"

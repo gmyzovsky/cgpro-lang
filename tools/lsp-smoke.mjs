@@ -54,6 +54,24 @@ entry dispatch is
 end entry;
 `;
 
+// Same module name in two environments. A .wcgp caller has to reach the .wcgi
+// half of the pair: that is the only file its Skin would actually load, and
+// picking the .sppi would be answering with another application's code.
+const WEB_CALLER = `function sharedThing(x) external;
+
+entry main {
+  Void(sharedThing(1));
+}
+`;
+const WEB_MODULE = `function sharedThing(x) {
+  return x;
+}
+`;
+const RTA_MODULE = `function sharedThing(x) is
+  return null;
+end function;
+`;
+
 const dir = mkdtempSync(path.join(tmpdir(), 'cgpl-smoke-'));
 const toUri = (f) => `file://${f.split('/').map(encodeURIComponent).join('/')}`;
 
@@ -68,6 +86,21 @@ writeFileSync(modulePath, MODULE);
 writeFileSync(qualifiedModulePath, QUALIFIED_MODULE);
 writeFileSync(callerPath, CALLER);
 const callerUri = toUri(callerPath);
+
+const webCallerPath = path.join(dir, 'webcaller.wcgp');
+const webModulePath = path.join(dir, 'sharedthing.wcgi');
+writeFileSync(webCallerPath, WEB_CALLER);
+writeFileSync(webModulePath, WEB_MODULE);
+writeFileSync(path.join(dir, 'sharedthing.sppi'), RTA_MODULE);
+const webCallerUri = toUri(webCallerPath);
+
+// Synchronous scripts are the third pair, .scgp/.scgi, and the one whose
+// include extension the project used to leave out entirely.
+const scriptCallerPath = path.join(dir, 'runner.scgp');
+const scriptModulePath = path.join(dir, 'scripthelper.scgi');
+writeFileSync(scriptCallerPath, 'function scriptHelper(x) external;\n\nentry main {\n  Void(scriptHelper(1));\n}\n');
+writeFileSync(scriptModulePath, 'function scriptHelper(x) {\n  return x;\n}\n');
+const scriptCallerUri = toUri(scriptCallerPath);
 
 const child = spawn(process.execPath, [serverPath, '--stdio'], { stdio: ['pipe', 'pipe', 'pipe'] });
 
@@ -256,6 +289,27 @@ try {
   check('does not call an external declaration an unknown call',
     (callerDiags?.params.diagnostics ?? []).length === 0,
     JSON.stringify(callerDiags?.params.diagnostics));
+
+  notify('textDocument/didOpen', {
+    textDocument: { uri: webCallerUri, languageId: 'cgpl', version: 1, text: WEB_CALLER },
+  });
+  const webDef = await request('textDocument/definition', {
+    textDocument: { uri: webCallerUri },
+    position: positionIn(WEB_CALLER, 'sharedThing(1)'),
+  });
+  check('prefers the module extension of the calling environment', webDef?.uri === toUri(webModulePath),
+    JSON.stringify(webDef));
+
+  const scriptText = 'function scriptHelper(x) external;\n\nentry main {\n  Void(scriptHelper(1));\n}\n';
+  notify('textDocument/didOpen', {
+    textDocument: { uri: scriptCallerUri, languageId: 'cgpl', version: 1, text: scriptText },
+  });
+  const scriptDef = await request('textDocument/definition', {
+    textDocument: { uri: scriptCallerUri },
+    position: positionIn(scriptText, 'scriptHelper(1)'),
+  });
+  check('resolves a synchronous script module (.scgi)', scriptDef?.uri === toUri(scriptModulePath),
+    JSON.stringify(scriptDef));
 
   console.log('\nhover:');
   const hover = await request('textDocument/hover', {

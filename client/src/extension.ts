@@ -30,7 +30,7 @@ export function activate(context: ExtensionContext): void {
     documentSelector: [{ scheme: 'file', language: 'cgpl' }],
     synchronize: {
       configurationSection: 'cgpl',
-      fileEvents: workspace.createFileSystemWatcher('**/*.{sppi,sppr,wcgp,wcgi,scgp}'),
+      fileEvents: workspace.createFileSystemWatcher('**/*.{sppi,sppr,wcgp,wcgi,scgp,scgi}'),
     },
   };
 

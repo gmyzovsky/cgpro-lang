@@ -27,7 +27,7 @@ const GRAMMARS = {
 };
 const EXT_TO_SCOPE = {
   '.wcgp': 'source.cgpl', '.wcgi': 'source.cgpl', '.sppr': 'source.cgpl',
-  '.sppi': 'source.cgpl', '.scgp': 'source.cgpl',
+  '.sppi': 'source.cgpl', '.scgp': 'source.cgpl', '.scgi': 'source.cgpl',
   '.wssp': 'text.html.wssp', '.wssi': 'text.html.wssp',
   '.data': 'source.cgpro-data', '.settings': 'source.cgpro-data',
 };

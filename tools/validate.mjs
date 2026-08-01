@@ -38,6 +38,7 @@ const EXT_TO_SCOPE = {
   '.sppr': 'source.cgpl',
   '.sppi': 'source.cgpl',
   '.scgp': 'source.cgpl',
+  '.scgi': 'source.cgpl',
   '.wssp': 'text.html.wssp',
   '.wssi': 'text.html.wssp',
   '.data': 'source.cgpro-data',
