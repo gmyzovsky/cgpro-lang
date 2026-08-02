@@ -62,6 +62,26 @@ const OPERATORS: readonly string[] = [
 
 const PUNCTUATION: readonly string[] = ['(', ')', '[', ']', '{', '}', ';', ',', '.'];
 
+/**
+ * Names a character the lexer cannot place. Most of them are visible and
+ * quoting them says enough; a byte order mark is not, and "unexpected
+ * character" over an empty-looking spot is a puzzle rather than a report.
+ *
+ * A BOM is a real error and not a pedantic one. Only the WebAdmin text form
+ * strips it (removeUTF8BOM in the server); a file uploaded over the CLI, FTP or
+ * in a tar keeps it, and the compiler then reads the mark and the first keyword
+ * as one name - `StoreDomainPBXFile ... TRYCOMPILE` answers "entry or procedure
+ * is expected" at the offset just past `<BOM>entry`.
+ */
+function describeUnexpected(ch: string): string {
+  // Spelled as an escape on purpose: written literally it would be as invisible
+  // here as it is in the file being reported on.
+  if (ch === '\uFEFF') {
+    return 'Byte order mark. CommuniGate Pro strips one only from the WebAdmin text form - uploaded over CLI, FTP or in a tar, this file does not compile. Save it as UTF-8 without a BOM.';
+  }
+  return `Unexpected character ${JSON.stringify(ch)}`;
+}
+
 function isDigit(ch: string): boolean {
   return ch >= '0' && ch <= '9';
 }
@@ -238,7 +258,7 @@ export function tokenize(text: string): LexResult {
 
     // Anything else (a stray backtick, a non-ASCII symbol outside a string).
     pos++;
-    diagnostics.push({ message: `Unexpected character ${JSON.stringify(ch)}`, start, end: pos });
+    diagnostics.push({ message: describeUnexpected(ch), start, end: pos });
     push(TokenKind.Unknown, start, pos, tokLine, tokChar);
   }
 

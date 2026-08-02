@@ -89,6 +89,18 @@ for (const [label, src] of Object.entries(mustFail)) {
   else bad(label, 'no error reported');
 }
 
+// A byte order mark belongs above, but its message is the point: the character
+// is invisible in the editor, so naming it is the whole difference between a
+// usable report and a mystery. CommuniGate Pro rejects such a file on every
+// upload path except the WebAdmin text form, which strips the mark first.
+{
+  const bomErrors = parse('\uFEFF' + 'entry main {\n}\n').diagnostics.filter((d) => d.severity === 'error');
+  if (bomErrors.length === 0) bad('byte order mark', 'no error reported');
+  else if (!/byte order mark/i.test(bomErrors[0].message)) {
+    bad('byte order mark', `reported as "${bomErrors[0].message}"`);
+  } else ok('byte order mark (named in the message)');
+}
+
 // --- (c) valid code in both dialects must be accepted -----------------------
 
 console.log('\nValid code is accepted:');
