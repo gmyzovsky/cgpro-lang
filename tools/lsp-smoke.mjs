@@ -378,6 +378,46 @@ try {
     (items.find((i) => i.label === 'helper')?.sortText ?? 'z') <
       (items.find((i) => i.label === 'SysLog')?.sortText ?? 'a'));
 
+  // A qualified name is one name written in two halves. Every handler has to
+  // put them back together: the section table is keyed on `module::name`, so
+  // looking a section up by whichever half the cursor is on finds nothing.
+  console.log('\nqualified names:');
+  const qualifiedHover = await request('textDocument/hover', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'formatLeg(leg) external'),
+  });
+  check('hovers a qualified declaration',
+    (qualifiedHover?.contents?.value ?? '').includes('sharedTools::formatLeg(leg)'),
+    JSON.stringify(qualifiedHover));
+
+  const qualifiedModuleHalfHover = await request('textDocument/hover', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'sharedTools::formatLeg(leg)'),
+  });
+  check('hovers it from the module half too',
+    (qualifiedModuleHalfHover?.contents?.value ?? '').includes('sharedTools::formatLeg(leg)'),
+    JSON.stringify(qualifiedModuleHalfHover));
+
+  const qualifiedFromDeclaration = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'formatLeg(leg) external'),
+  });
+  check('follows a qualified external from its declaration',
+    qualifiedFromDeclaration?.uri === toUri(qualifiedModulePath),
+    JSON.stringify(qualifiedFromDeclaration));
+
+  const qualifiedCallPosition = positionIn(CALLER, 'sharedTools::formatLeg("leg")');
+  const qualifiedSig = await request('textDocument/signatureHelp', {
+    textDocument: { uri: callerUri },
+    position: {
+      line: qualifiedCallPosition.line,
+      character: qualifiedCallPosition.character + 'sharedTools::formatLeg('.length,
+    },
+  });
+  check('gives signature help at a qualified call',
+    (qualifiedSig?.signatures?.[0]?.label ?? '') === 'sharedTools::formatLeg(leg)',
+    JSON.stringify(qualifiedSig));
+
   // CGPL.md #Variables. Nothing here is a diagnostic - out-of-scope names are
   // hidden from completion and left unresolved, never reported as errors.
   console.log('\nblock scope:');

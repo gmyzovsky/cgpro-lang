@@ -39,7 +39,7 @@ import {
   SymbolInfo,
 } from './analyzer';
 import { allBuiltins, lookupBuiltin, builtinHover, Builtin } from './builtins';
-import { tokenize, TokenKind } from './lexer';
+import { tokenize, Token, TokenKind } from './lexer';
 
 const connection = createConnection(ProposedFeatures.all);
 const documents = new TextDocuments(TextDocument);
@@ -160,14 +160,48 @@ function toDocumentSymbol(doc: TextDocument, sym: SymbolInfo): DocumentSymbol {
 
 // --- position helpers -------------------------------------------------------
 
-/** The identifier-ish token at `offset`, if any. */
-function tokenAt(text: string, offset: number): { text: string; start: number; end: number } | undefined {
+interface NameAtPosition {
+  /** The single token under the cursor, as written. */
+  text: string;
+  start: number;
+  end: number;
+  /**
+   * Lower-cased `module::name` when the cursor is on either half of a qualified
+   * name, and just the token otherwise. Code sections are keyed on the whole
+   * qualified name, so looking one up by the half the cursor happens to be on
+   * finds nothing.
+   */
+  qualified: string;
+}
+
+const isModuleSeparator = (t: Token | undefined): boolean =>
+  t !== undefined && t.kind === TokenKind.Operator && t.text === '::';
+
+/** The identifier-ish token at `offset`, if any, plus the qualified name it is part of. */
+function nameAt(text: string, offset: number): NameAtPosition | undefined {
   const { tokens } = tokenize(text);
-  for (const t of tokens) {
-    if (t.kind !== TokenKind.Identifier && t.kind !== TokenKind.Keyword) continue;
-    if (offset >= t.start && offset <= t.end) return { text: t.text, start: t.start, end: t.end };
+  const i = tokens.findIndex(
+    (t) =>
+      (t.kind === TokenKind.Identifier || t.kind === TokenKind.Keyword) &&
+      offset >= t.start &&
+      offset <= t.end,
+  );
+  if (i < 0) return undefined;
+  const token = tokens[i];
+
+  let qualified = token.lower;
+  if (isModuleSeparator(tokens[i + 1]) && tokens[i + 2]?.kind === TokenKind.Identifier) {
+    // The cursor is on the module half of `module::name`.
+    qualified = `${token.lower}::${tokens[i + 2].lower}`;
+  } else if (isModuleSeparator(tokens[i - 1]) && tokens[i - 2]?.kind === TokenKind.Identifier) {
+    qualified = `${tokens[i - 2].lower}::${token.lower}`;
   }
-  return undefined;
+  return { text: token.text, start: token.start, end: token.end, qualified };
+}
+
+/** The section a name refers to, whether it was written qualified or not. */
+function sectionFor(analysis: AnalysisResult, name: NameAtPosition): SymbolInfo | undefined {
+  return analysis.sections.get(name.qualified) ?? analysis.sections.get(name.text.toLowerCase());
 }
 
 const CGPL_EXTENSIONS = ['.sppi', '.sppr', '.wcgi', '.wcgp', '.scgi', '.scgp'];
@@ -253,10 +287,16 @@ function definitionInFile(file: string, sectionLower: string): Location | undefi
     return undefined;
   }
   const analysis = analyze(parse(text).program);
+  const bare = sectionLower.split('::').pop() ?? sectionLower;
   const target =
     analysis.sections.get(sectionLower) ??
     // A module's section may be declared unqualified inside its own file.
-    analysis.sections.get(sectionLower.split('::').pop() ?? sectionLower);
+    analysis.sections.get(bare) ??
+    // ...or the other way round: named unqualified at the call site and defined
+    // as `module::name` in the module. The section name identifies it either way.
+    [...analysis.sections.values()].find(
+      (s) => s.bodyKind === 'definition' && (s.lower.split('::').pop() ?? s.lower) === bare,
+    );
   // The module file may itself only re-declare the section as external; that is
   // a dead end, not a definition, and following it would land the cursor on
   // another 'external;' line.
@@ -286,7 +326,10 @@ function externalDefinition(docUri: string, section: SymbolInfo): Location | und
   const moduleName = section.module ?? sectionName;
   const file = findModuleFile(docUri, moduleName);
   if (!file) return undefined;
-  return definitionInFile(file, sectionName.toLowerCase());
+  // The full qualified key, so a module that declares its own section as
+  // `module::name` matches exactly; definitionInFile falls back to the bare
+  // section name for the usual case where it does not.
+  return definitionInFile(file, section.lower);
 }
 
 // --- completion -------------------------------------------------------------
@@ -360,6 +403,12 @@ function enclosingCall(text: string, offset: number): { name: string; argIndex: 
         if (depth === 0) {
           const name = tokens[k - 1];
           if (name && name.kind === TokenKind.Identifier) {
+            // `module::name(` - carry both halves, since that is how the
+            // section was declared and how the section table is keyed.
+            const module = tokens[k - 3];
+            if (isModuleSeparator(tokens[k - 2]) && module?.kind === TokenKind.Identifier) {
+              return { name: `${module.text}::${name.text}`, argIndex };
+            }
             return { name: name.text, argIndex };
           }
           return undefined;
@@ -430,11 +479,11 @@ connection.onDefinition((params) => {
     }
   }
 
-  const tok = tokenAt(text, offset);
-  if (!tok) return null;
-  const lower = tok.text.toLowerCase();
+  const name = nameAt(text, offset);
+  if (!name) return null;
+  const lower = name.text.toLowerCase();
 
-  const section = analysis.sections.get(lower);
+  const section = sectionFor(analysis, name);
   if (section) {
     // An external-declaration is a signpost, not a destination: jumping to it
     // would leave the cursor on the 'external;' line the user is already
@@ -462,13 +511,13 @@ connection.onDefinition((params) => {
 connection.onHover((params) => {
   const doc = documents.get(params.textDocument.uri);
   if (!doc) return null;
-  const tok = tokenAt(doc.getText(), doc.offsetAt(params.position));
-  if (!tok) return null;
+  const name = nameAt(doc.getText(), doc.offsetAt(params.position));
+  if (!name) return null;
 
   const analysis = analysisFor(doc);
-  const lower = tok.text.toLowerCase();
+  const lower = name.text.toLowerCase();
 
-  const section = analysis.sections.get(lower);
+  const section = sectionFor(analysis, name);
   if (section) {
     const params_ = section.params?.length ? section.params.join(', ') : '';
     const body = section.bodyKind === 'definition' ? '' : ` ${section.bodyKind}`;
