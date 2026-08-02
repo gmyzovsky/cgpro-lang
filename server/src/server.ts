@@ -29,7 +29,15 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { parse } from './parser';
-import { analyze, unresolvedCalls, arityProblems, AnalysisResult, SymbolInfo } from './analyzer';
+import {
+  analyze,
+  unresolvedCalls,
+  arityProblems,
+  visibleLocals,
+  resolveLocal,
+  AnalysisResult,
+  SymbolInfo,
+} from './analyzer';
 import { allBuiltins, lookupBuiltin, builtinHover, Builtin } from './builtins';
 import { tokenize, TokenKind } from './lexer';
 
@@ -308,12 +316,14 @@ function localCompletions(analysis: AnalysisResult, offset: number): CompletionI
     if (sym.kind === 'entry' || sym.kind === 'procedure' || sym.kind === 'function') {
       const detail = sym.params && sym.params.length ? `${sym.name}(${sym.params.join(', ')})` : `${sym.name}()`;
       add(sym, sym.kind === 'function' ? CompletionItemKind.Function : CompletionItemKind.Method, detail);
-      // Variables of the section the cursor is in.
+      // Variables of the section the cursor is in - only the ones in scope
+      // there. Offering a variable declared in a branch the cursor is not in,
+      // or one declared further down, suggests code that would not run.
       if (offset >= sym.start && offset <= sym.end) {
-        for (const child of sym.children ?? []) {
+        for (const child of visibleLocals(sym, offset)) {
           add(
             child,
-            child.kind === 'parameter' ? CompletionItemKind.Variable : CompletionItemKind.Variable,
+            CompletionItemKind.Variable,
             child.kind === 'parameter' ? 'parameter' : child.kind,
           );
         }
@@ -436,11 +446,12 @@ connection.onDefinition((params) => {
     );
   }
 
-  // Fall back to a local variable or parameter declaration.
+  // Fall back to a local variable or parameter declaration - the one actually
+  // in scope at the cursor, which for a shadowed name is the innermost.
   for (const sym of analysis.symbols) {
     if (!sym.children) continue;
     if (offset < sym.start || offset > sym.end) continue;
-    const local = sym.children.find((c) => c.lower === lower);
+    const local = resolveLocal(sym, lower, offset);
     if (local) return { uri: doc.uri, range: rangeOf(doc, local.nameStart, local.nameEnd) } as Location;
   }
   const global = analysis.globals.find((g) => g.lower === lower);
