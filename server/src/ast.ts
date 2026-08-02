@@ -172,15 +172,28 @@ export interface AssignmentStatement extends Node {
   value: Expression;
 }
 
+/**
+ * One `if`/`elif` branch. It carries the source range of its *body* rather than
+ * of the whole branch, because a variable declared inside a block operator
+ * exists only in that block (CGPL.md #Variables), and each branch is a separate
+ * block: a `var` in the `then` part is not in scope in the `else` part.
+ */
 export interface IfClause {
   test: Expression;
   body: Statement[];
+  /** Just past `then` or `{`. */
+  start: number;
+  /** At the token that closes the branch - `elif`, `else`, `end` or `}`. */
+  end: number;
 }
 
 export interface IfStatement extends Node {
   kind: 'IfStatement';
   clauses: IfClause[];
   alternate?: Statement[];
+  /** Source range of the `else` body, on the same terms as IfClause. */
+  alternateStart?: number;
+  alternateEnd?: number;
 }
 
 export interface ExitIfClause {

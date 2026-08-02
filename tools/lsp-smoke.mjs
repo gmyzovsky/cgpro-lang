@@ -72,6 +72,37 @@ const RTA_MODULE = `function sharedThing(x) is
 end function;
 `;
 
+// Lexical scope. CGPL.md #Variables: a variable declared inside a "block
+// operator" (if, loop) is declared only inside that block, and variables are
+// used after they are declared. Both dialects, both branches, and a name
+// shadowed by an inner declaration.
+const SCOPES = `var taskWide;
+
+procedure branches(arg) is
+  var shadowed = "outer";
+  for var index = 0 while index < 10 by index += 1 loop
+    var inLoop = index;
+    SysLog(inLoop);
+  end loop;
+  if arg == null then
+    var shadowed = "inner";
+    SysLog(shadowed);
+  else
+    var inElse = 1;
+    SysLog(inElse);
+  end if;
+  SysLog(shadowed);
+  var declaredLast = 1;
+end procedure;
+
+procedure braced(p) {
+  if (p) {
+    var inBrace = 1;
+    SysLog(inBrace);
+  }
+}
+`;
+
 const dir = mkdtempSync(path.join(tmpdir(), 'cgpl-smoke-'));
 const toUri = (f) => `file://${f.split('/').map(encodeURIComponent).join('/')}`;
 
@@ -101,6 +132,10 @@ const scriptModulePath = path.join(dir, 'scripthelper.scgi');
 writeFileSync(scriptCallerPath, 'function scriptHelper(x) external;\n\nentry main {\n  Void(scriptHelper(1));\n}\n');
 writeFileSync(scriptModulePath, 'function scriptHelper(x) {\n  return x;\n}\n');
 const scriptCallerUri = toUri(scriptCallerPath);
+
+const scopesPath = path.join(dir, 'scopes.sppr');
+writeFileSync(scopesPath, SCOPES);
+const scopesUri = toUri(scopesPath);
 
 const child = spawn(process.execPath, [serverPath, '--stdio'], { stdio: ['pipe', 'pipe', 'pipe'] });
 
@@ -342,6 +377,98 @@ try {
   check('sorts locals above built-ins',
     (items.find((i) => i.label === 'helper')?.sortText ?? 'z') <
       (items.find((i) => i.label === 'SysLog')?.sortText ?? 'a'));
+
+  // A qualified name is one name written in two halves. Every handler has to
+  // put them back together: the section table is keyed on `module::name`, so
+  // looking a section up by whichever half the cursor is on finds nothing.
+  console.log('\nqualified names:');
+  const qualifiedHover = await request('textDocument/hover', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'formatLeg(leg) external'),
+  });
+  check('hovers a qualified declaration',
+    (qualifiedHover?.contents?.value ?? '').includes('sharedTools::formatLeg(leg)'),
+    JSON.stringify(qualifiedHover));
+
+  const qualifiedModuleHalfHover = await request('textDocument/hover', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'sharedTools::formatLeg(leg)'),
+  });
+  check('hovers it from the module half too',
+    (qualifiedModuleHalfHover?.contents?.value ?? '').includes('sharedTools::formatLeg(leg)'),
+    JSON.stringify(qualifiedModuleHalfHover));
+
+  const qualifiedFromDeclaration = await request('textDocument/definition', {
+    textDocument: { uri: callerUri },
+    position: positionIn(CALLER, 'formatLeg(leg) external'),
+  });
+  check('follows a qualified external from its declaration',
+    qualifiedFromDeclaration?.uri === toUri(qualifiedModulePath),
+    JSON.stringify(qualifiedFromDeclaration));
+
+  const qualifiedCallPosition = positionIn(CALLER, 'sharedTools::formatLeg("leg")');
+  const qualifiedSig = await request('textDocument/signatureHelp', {
+    textDocument: { uri: callerUri },
+    position: {
+      line: qualifiedCallPosition.line,
+      character: qualifiedCallPosition.character + 'sharedTools::formatLeg('.length,
+    },
+  });
+  check('gives signature help at a qualified call',
+    (qualifiedSig?.signatures?.[0]?.label ?? '') === 'sharedTools::formatLeg(leg)',
+    JSON.stringify(qualifiedSig));
+
+  // CGPL.md #Variables. Nothing here is a diagnostic - out-of-scope names are
+  // hidden from completion and left unresolved, never reported as errors.
+  console.log('\nblock scope:');
+  notify('textDocument/didOpen', {
+    textDocument: { uri: scopesUri, languageId: 'cgpl', version: 1, text: SCOPES },
+  });
+  const scopePosition = (needle, occurrence = 1) => positionIn(SCOPES, needle, occurrence);
+  const scopeDefinition = (needle, occurrence = 1) =>
+    request('textDocument/definition', {
+      textDocument: { uri: scopesUri },
+      position: scopePosition(needle, occurrence),
+    });
+
+  const inThenBranch = await request('textDocument/completion', {
+    textDocument: { uri: scopesUri },
+    position: scopePosition('SysLog(shadowed)', 1),
+  });
+  const inThenLabels = (inThenBranch.items ?? inThenBranch).map((i) => i.label);
+  check('offers the branch-local variable', inThenLabels.includes('shadowed'), inThenLabels.length + ' items');
+  check('offers the parameter', inThenLabels.includes('arg'));
+  check('offers the task variable', inThenLabels.includes('taskWide'));
+  check('hides the other branch', !inThenLabels.includes('inElse'), inThenLabels.join(', '));
+  check('hides a variable local to the loop', !inThenLabels.includes('inLoop'));
+  check('hides a variable declared further down', !inThenLabels.includes('declaredLast'));
+  check('still offers built-ins', inThenLabels.includes('SysLog'));
+
+  const innerShadow = await scopeDefinition('shadowed);', 1);
+  check('resolves a shadowed name to the inner declaration',
+    innerShadow?.range.start.line === scopePosition('shadowed = "inner"').line,
+    JSON.stringify(innerShadow?.range));
+  const outerShadow = await scopeDefinition('shadowed);', 2);
+  check('resolves it to the outer declaration once the branch has closed',
+    outerShadow?.range.start.line === scopePosition('shadowed = "outer"').line,
+    JSON.stringify(outerShadow?.range));
+
+  const loopLocal = await scopeDefinition('inLoop);');
+  check('resolves a loop-body variable inside the loop',
+    loopLocal?.range.start.line === scopePosition('inLoop = index').line, JSON.stringify(loopLocal?.range));
+  const loopHeaderVar = await scopeDefinition('index;');
+  check('resolves the loop header variable in the body',
+    loopHeaderVar?.range.start.line === scopePosition('index = 0').line, JSON.stringify(loopHeaderVar?.range));
+  const braceLocal = await scopeDefinition('inBrace);');
+  check('resolves a variable declared in a brace-dialect block',
+    braceLocal?.range.start.line === scopePosition('inBrace = 1').line, JSON.stringify(braceLocal?.range));
+
+  const scopeDiagnostics = notifications
+    .filter((n) => n.method === 'textDocument/publishDiagnostics' && n.params.uri === scopesUri)
+    .pop();
+  check('reports no diagnostics on any of it',
+    (scopeDiagnostics?.params.diagnostics ?? []).length === 0,
+    JSON.stringify(scopeDiagnostics?.params.diagnostics));
 
   console.log('\nsignature help:');
   const sig = await request('textDocument/signatureHelp', {

@@ -21,14 +21,17 @@
     "onLanguage:cgpl"
   ],
   "scripts": {
+    "postinstall": "npm install --prefix server",
     "fetch:docs": "node tools/fetch-docs.mjs",
     "extract:builtins": "node tools/extract-builtins.mjs",
+    "refresh:builtins": "npm run fetch:docs && npm run extract:builtins && npm run build:grammars",
     "build:grammars": "node tools/build-grammars.mjs",
     "build:server": "tsc -p server",
     "build:client": "tsc -p client",
-    "build": "npm run extract:builtins && npm run build:grammars && npm run build:server && npm run build:client",
+    "build": "npm run build:grammars && npm run build:server && npm run build:client",
     "validate": "node tools/validate.mjs",
     "validate:parser": "node tools/parser-sanity.mjs",
+    "validate:lsp": "node tools/lsp-smoke.mjs",
     "vscode:prepublish": "npm run build"
   },
   "dependencies": {

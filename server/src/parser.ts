@@ -465,20 +465,24 @@ class Parser {
     const start = this.next().start; // if
     const clauses: ast.IfClause[] = [];
     let alternate: ast.Statement[] | undefined;
+    let alternateStart: number | undefined;
+    let alternateEnd: number | undefined;
 
     const test = this.parseExpression();
 
     if (this.eatKeyword('then')) {
       // `is/end` dialect
-      clauses.push({ test, body: this.parseStatementsUntil((p) => p.isEndOfIfPart()) });
+      clauses.push(this.parseIfClause(test, (p) => p.isEndOfIfPart()));
       while (this.isKeyword('elif')) {
         this.next();
         const elifTest = this.parseExpression();
         this.eatKeyword('then');
-        clauses.push({ test: elifTest, body: this.parseStatementsUntil((p) => p.isEndOfIfPart()) });
+        clauses.push(this.parseIfClause(elifTest, (p) => p.isEndOfIfPart()));
       }
       if (this.eatKeyword('else')) {
+        alternateStart = this.previousEnd();
         alternate = this.parseStatementsUntil((p) => p.isKeyword('end'));
+        alternateEnd = this.current.start;
       }
       if (this.eatKeyword('end')) {
         this.eatKeyword('if');
@@ -489,20 +493,22 @@ class Parser {
     } else if (this.isPunct('{')) {
       // brace dialect
       this.next();
-      clauses.push({ test, body: this.parseStatementsUntil((p) => p.isPunct('}')) });
+      clauses.push(this.parseIfClause(test, (p) => p.isPunct('}')));
       this.expectPunct('}', "to close the 'if' body");
       while (this.isKeyword('elif')) {
         this.next();
         const elifTest = this.parseExpression();
         this.expectPunct('{', "after an 'elif' condition");
-        clauses.push({ test: elifTest, body: this.parseStatementsUntil((p) => p.isPunct('}')) });
+        clauses.push(this.parseIfClause(elifTest, (p) => p.isPunct('}')));
         this.expectPunct('}', "to close the 'elif' body");
       }
       if (this.eatKeyword('else')) {
         // `else if` chains are written as `elif` in CG/PL, but tolerate the
         // brace-dialect `else { ... }`.
         this.expectPunct('{', "after 'else'");
+        alternateStart = this.previousEnd();
         alternate = this.parseStatementsUntil((p) => p.isPunct('}'));
+        alternateEnd = this.current.start;
         this.expectPunct('}', "to close the 'else' body");
       }
     } else {
@@ -510,7 +516,27 @@ class Parser {
       this.resyncStatement();
     }
 
-    return { kind: 'IfStatement', clauses, alternate, start, end: this.previousEnd() };
+    return {
+      kind: 'IfStatement',
+      clauses,
+      alternate,
+      alternateStart,
+      alternateEnd,
+      start,
+      end: this.previousEnd(),
+    };
+  }
+
+  /**
+   * A branch body plus its source range. The range runs from just past the
+   * `then`/`{` that opened it to the start of the token that closes it, so it
+   * covers the trailing blank lines a reader is likely to be typing on - the
+   * scope of a `var` declared in this branch (CGPL.md #Variables).
+   */
+  private parseIfClause(test: ast.Expression, stop: (p: Parser) => boolean): ast.IfClause {
+    const start = this.previousEnd();
+    const body = this.parseStatementsUntil(stop);
+    return { test, body, start, end: this.current.start };
   }
 
   private isEndOfIfPart(): boolean {

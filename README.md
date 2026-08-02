@@ -19,11 +19,15 @@ This repository's root *is* the VSCode extension. It bundles the language server
 child process and talks to the editor over stdio - no network access, no telemetry. Package and install it:
 
 ```sh
-npm install
+npm install            # also installs server/, which has its own dependency tree
 npm run build          # regenerate grammars, then compile the server and client
 npx @vscode/vsce package
 code --install-extension cgpro-lang-0.1.0.vsix
 ```
+
+The server keeps its own `package.json` because it ships to two editors and must not inherit the client's
+dependencies; a root `postinstall` runs `npm install --prefix server` so one `npm install` still covers both.
+`npm run build` needs no network and no documentation - it works from the checked-in `tools/builtins.json`.
 
 ### JetBrains IDEs (IntelliJ IDEA, CLion, WebStorm, PyCharm, ...)
 
@@ -39,12 +43,13 @@ fnm, Volta and asdf locations. If yours is somewhere else, name it in `Help -> E
 -Dcgpro.lang.nodePath=/path/to/node
 ```
 
-Build the plugin against the compiled server:
+Build the plugin against the compiled server. This needs an installed [Gradle](https://gradle.org) (there is
+no wrapper checked in; built and tested with Gradle 9.6.1) and a JDK 21:
 
 ```sh
 npm install && npm run build          # produces the server the plugin ships
 cd jetbrains-plugin
-JAVA_HOME=<path to a JDK 21 install> ./gradlew buildPlugin
+JAVA_HOME=<path to a JDK 21 install> gradle buildPlugin
 ```
 
 Then in your IDE: `Settings -> Plugins -> ⚙ -> Install Plugin from Disk...` and pick
@@ -87,10 +92,13 @@ from those public pages - a network connection is the only prerequisite:
 npm run fetch:docs                # download the pages above into ./docs
 npm run extract:builtins          # docs -> tools/builtins.json
 npm run build:grammars            # builtins.json + hand-authored grammar shape -> syntaxes/*.tmLanguage.json
+npm run refresh:builtins          # all three in order
 ```
 
 `tools/builtins.json` is checked in, so building the extension, the server or the JetBrains plugin needs no
-documentation at all; fetching and extracting is only needed to refresh it. The extractor accepts either the
+documentation at all; fetching and extracting is only needed to refresh it. That is why `npm run build` does
+*not* run `extract:builtins`: `docs/` is deliberately not tracked, and a normal build must not depend on
+pages that a fresh clone has never downloaded. The extractor accepts either the
 published HTML or a local Markdown copy of the same pages - set `CGPRO_DOCS_ROOT` to point at either.
 
 `tools/builtins-registry.json` is the full roster of built-ins the server provides - every one of them, not
